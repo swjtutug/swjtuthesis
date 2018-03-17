@@ -15,14 +15,18 @@
 
 1. 使用说明文档
 [swjtuthesis.pdf](https://github.com/swjtutug/swjtuthesis/releases/download/v1.0/swjtuthesis.pdf)
-在发布版中附带，用户也可自行编译；**使用模板前应仔细阅读**。
+在发布版中附带，用户也可自行编译获取说明文档；**使用模板前应仔细阅读**。
 
 2. 本模板要求 TeX Live、MacTeX、MikTeX 不低于 2015 年的发行版，
 并且尽可能升级到最新。
 
 3. **不支持** [CTeX 套装](http://www.ctex.org/CTeXDownload)。
 
-4. 这个版本不知道为什么make无法运行，但是其他方式确实可以的。
+4. 初始版本无法利用 `make` 编译运行，但是其他方式可以的，主要是版本的依赖问题。
+
+5. 国内网络部分时间可能无法正常访问，访问时间较长。配置
+[Travis CI](https://travis-ci.org/swjtutug/swjtuthesis)
+时，未注意到时间延迟问题，因此起始阶段花费时间较大。
 
 ## 下载地址
 
