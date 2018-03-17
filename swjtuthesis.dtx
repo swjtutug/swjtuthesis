@@ -58,7 +58,7 @@ LaTeX version 1999/12/01 or later.
 %<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<class>\ProvidesClass{swjtuthesis}
 %<*class>
-    [2018/03/16 v1.0.0 SWJTU thesis template]
+    [2018/03/16 v1.0 SWJTU thesis template]
 %</class>
 %
 %<*driver>
@@ -829,7 +829,7 @@ LaTeX version 1999/12/01 or later.
 %
 % 再用 \pkg{fancyhdr} 宏包设置页眉页码。
 % \changes{v1.0}{2018/03/15}{页码全部居中}
-% \changes{v1.0.0}{2018/03/16}{修正本科生的页码}
+% \changes{v1.0}{2018/03/15}{修正本科生的页码}
 %
 %    \begin{macrocode}
 \RequirePackage{fancyhdr}
@@ -1630,7 +1630,7 @@ LaTeX version 1999/12/01 or later.
 % 定义接口切换引用文献的标注法，可用 \cs{citestyle} 调用 \opt{super} 、
 % \opt{authoryear} 或 \opt{numbers}。
 % \changes{v1.0}{2018/03/15}{允许文献序号作为叙述文字的一部分}
-% \changes{v1.0.0}{2018/03/16}{修正著者-出版年式参考文献引用的顺序}
+% \changes{v1.0}{2018/03/15}{修正著者-出版年式参考文献引用的顺序}
 %    \begin{macrocode}
 \if@swjtu@numerical
   \PassOptionsToPackage{sort&compress}{natbib}
@@ -2447,7 +2447,7 @@ INTEGERS { nameptr namesleft numnames name.lang }
 %
 % SWJTU requires no upper case of author names for undergraduates.
 %
-% \changes{v1.0.0}{2018/03/16}{修正参考文献姓名的“others”}
+% \changes{v1.0}{2018/03/15}{修正参考文献姓名的“others”}
 %
 %    \begin{macrocode}
 FUNCTION {format.names}
