@@ -26,7 +26,10 @@
 
 5. 国内网络部分时间可能无法正常访问，访问时间较长。配置
 [Travis CI](https://travis-ci.org/swjtutug/swjtuthesis)
-时，未注意到时间延迟问题，因此起始阶段花费时间较大。
+时，未注意到时间延迟问题，因此起始阶段花费时间较大，配置实现参考
+[官方文档](https://docs.travis-ci.com/)
+或者
+[阮一峰博客](http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html)。
 
 ## 下载地址
 
