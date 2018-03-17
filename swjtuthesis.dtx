@@ -1,0 +1,4571 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2018 by Changfu Chen <geosciman@163.com>
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.2 of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+%     http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of
+% LaTeX version 1999/12/01 or later.
+%
+%<*internal>
+\iffalse
+\fi
+\begingroup
+    \def\nameoflatex{LaTeX2e}
+\expandafter\endgroup\ifx\nameoflatex\fmtname\else
+\csname fi\endcsname
+%</internal>
+%<*install>
+\input docstrip.tex
+\preamble
+
+Copyright (C) 2018-\the\year by Changfu Chen <geosciman@163.com>
+
+This file may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either
+version 1.2 of this license or (at your option) any later
+version. The latest version of this license is in:
+
+    http://www.latex-project.org/lppl.txt
+
+and version 1.2 or later is part of all distributions of
+LaTeX version 1999/12/01 or later.
+
+\endpreamble
+\keepsilent
+\askforoverwritefalse
+\nopostamble
+\generate{
+    \file{\jobname.cls}{\from{\jobname.dtx}{class}}
+    \file{swjtunumerical.bst}{\from{\jobname.dtx}{numerical}}
+    \file{swjtuauthoryear.bst}{\from{\jobname.dtx}{authoryear}}
+    \file{swjtubachelor.bst}{\from{\jobname.dtx}{bachelor,numerical}}
+}
+\Msg{* Happy TeXing!}
+\endbatchfile
+%</install>
+%<*internal>
+\fi
+%</internal>
+%<*driver>
+\ProvidesFile{swjtuthesis.dtx}
+%</driver>
+%<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<class>\ProvidesClass{swjtuthesis}
+%<*class>
+    [2018/03/16 v1.0.0 SWJTU thesis template]
+%</class>
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[paper=a4paper,hmargin={1.5in,1in},vmargin=1.5in]{geometry}
+\usepackage{hypdoc}
+\hypersetup{
+    bookmarksopen=true,
+    bookmarksnumbered=true,
+    CJKbookmarks=true,
+    unicode=true,
+    allcolors=blue,
+}
+\usepackage[UTF8]{ctex}
+\IfFileExists{/System/Library/Fonts/Times.ttc}{%
+  \setmainfont{Times}
+  \setsansfont[Scale=MatchLowercase]{Helvetica}
+  \setmonofont[Scale=MatchLowercase]{Menlo}
+}{\relax}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\lstdefinestyle{lstshell}{
+  basicstyle=\small\ttfamily,
+  backgroundcolor=\color{lightgray},
+  gobble=2,% 重要！否则会生成注释符号"%"
+  language=bash}
+\newcommand\shellcmd[1]{%
+\colorbox{lightgray}{\lstinline[style=lstshell]|#1|}}
+\lstnewenvironment{shell}{\lstset{style=lstshell}}{}
+\lstnewenvironment{latex}{%
+  \lstset{%
+    basicstyle=\small\ttfamily,
+    frame=single,
+    gobble=2,
+    language=[LaTeX]TeX}}{}
+\lstnewenvironment{pseudocode}{%
+  \lstset{%
+    basicstyle=\ttfamily,
+    frame=single,
+    gobble=2,
+    language=bash}}{}
+% 模仿 l3doc 的定义
+\DeclareRobustCommand\file{\nolinkurl}
+\DeclareRobustCommand\env{\texttt}
+\DeclareRobustCommand\pkg{\textsf}
+\DeclareRobustCommand\cls{\textsf}
+\DeclareRobustCommand\opt{\texttt}
+\renewcommand\glossaryname{版本历史}
+\GlossaryPrologue{\section*{\glossaryname}}
+\makeatletter
+\renewcommand*{\changes@}[3]{%
+ \protected@edef\@tempa{%
+  \noexpand\glossary{#1 (#2)\levelchar
+   \ifx\saved@macroname\@empty
+    \space\actualchar\generalname
+   \else
+    \expandafter\@gobble\saved@macroname
+    \actualchar
+    \string\verb\quotechar*\verbatimchar\saved@macroname\verbatimchar
+   \fi
+   :\levelchar #3}}%
+ \@tempa
+ \endgroup
+ \@esphack
+}
+\makeatother
+\renewcommand\indexname{命令索引}
+\IndexPrologue{%
+    \section*{\indexname}
+    \textit{意大利体的数字表示描述对应索引项的页码；
+    带下划线的数字表示定义对应索引项的代码行号；
+    罗马字体的数字表示使用对应索引项的代码行号。}}
+\newcommand\TeXLive{\TeX\ Live}
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\OnlyDescription
+
+\begin{document}
+  \DocInput{swjtuthesis.dtx}
+  \PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \DoNotIndex{\newenvironment,\@bsphack,\@empty,\@esphack,\sfcode}
+% \DoNotIndex{\addtocounter,\label,\let,\linewidth,\newcounter}
+% \DoNotIndex{\noindent,\normalfont,\par,\parskip,\phantomsection}
+% \DoNotIndex{\providecommand,\ProvidesPackage,\refstepcounter}
+% \DoNotIndex{\RequirePackage,\setcounter,\setlength,\string,\strut}
+% \DoNotIndex{\textbackslash,\texttt,\ttfamily,\usepackage}
+% \DoNotIndex{\begin,\end,\begingroup,\endgroup,\par,\\}
+% \DoNotIndex{\if,\ifx,\ifdim,\ifnum,\ifcase,\else,\or,\fi}
+% \DoNotIndex{\let,\def,\xdef,\edef,\newcommand,\renewcommand}
+% \DoNotIndex{\expandafter,\csname,\endcsname,\relax,\protect}
+% \DoNotIndex{\Huge,\huge,\LARGE,\Large,\large,\normalsize}
+% \DoNotIndex{\small,\footnotesize,\scriptsize,\tiny}
+% \DoNotIndex{\normalfont,\bfseries,\slshape,\sffamily,\interlinepenalty}
+% \DoNotIndex{\textbf,\textit,\textsf,\textsc}
+% \DoNotIndex{\hfil,\par,\hskip,\vskip,\vspace,\quad}
+% \DoNotIndex{\centering,\raggedright,\ref}
+% \DoNotIndex{\c@secnumdepth,\@startsection,\@setfontsize}
+% \DoNotIndex{\ ,\@plus,\@minus,\p@,\z@,\@m,\@M,\@ne,\m@ne}
+% \DoNotIndex{\@@par,\DeclareOperation,\RequirePackage,\LoadClass}
+% \DoNotIndex{\AtBeginDocument,\AtEndDocument}
+% \DoNotIndex{\.,\DeclareCaptionLabelSeparator,\DeclareComplementaryOption}
+%
+%
+%
+% \GetFileInfo{swjtuthesis.dtx}
+%
+% \title{\cls{swjtuthesis} 使用说明}
+% \author{Changfu Chen\thanks{geosciman@163.com} }
+% \date{\filedate\qquad\fileversion}
+% \maketitle
+%
+%
+%
+% \PrintChanges
+%
+% \section{简介}
+% \cls{swjtuthesis}是用于排版西南交通大学本科和研究生学位论文的\LaTeX{}模板，
+% 按照《\href{http://gs.swjtu.edu.cn/ws/gs/dd/25}
+% {西南交通大学研究生学位论文撰写规范}》
+% 和《\href{http://jwc.swjtu.edu.cn/download/file/2014060410031788.doc}
+% {本科毕业设计（论文）指导纪要（模板）}》 的要求编写。
+%
+% \cls{swjtuthesis} 的下载地址：
+% \begin{itemize}
+% \item 主要地址：\url{https://github.com/swjtutug/swjtuthesis/releases}
+% \end{itemize}
+%
+%
+%
+% \section{编译方法}
+%
+% \subsection{文件组成}
+% 本模板的主要文件如表~\ref{tab:files}：
+% \begin{table}[htbp]
+%   \centering
+%   \begin{tabular}{lll}
+%     \toprule
+%       类别     & 文件                      & 说明 \\
+%     \midrule
+%       模板文件 & \file{swjtuthesis.dtx}     & 模板原始代码文件，用户无需使用 \\
+%                & \file{swjtuthesis.cls}     & 文档类文件 \\
+%                & \file{swjtuextra.sty}      & 模板的附加宏包 \\
+%                & \file{swjtuauthoryear.bst} & author-year 风格的参考文献格式 \\
+%                & \file{swjtunumerical.bst}  & numerical 风格的参考文献格式 \\
+%                & \file{figures/swjtu_*.pdf} & 校名和校徽图片 \\
+%     \midrule
+%       生成文件 & \file{swjtuthesis.pdf}     & （你正在阅读的）模板使用说明 \\
+%     \midrule
+%       示例文档 & \file{main.tex}           & 主文档 \\
+%                & \file{chapters/*.tex}     & 示例文档的各个章节 \\
+%                & \file{figures/}           & 放置图片的目录 \\
+%                & \file{bib/tex.bib}        & \BibTeX{} 示例数据库 \\
+%     \midrule
+%       其他     & \file{README.md}          & 基本说明 \\
+%                & \file{.latexmkrc}         & latexmk 的配置文件 \\
+%                & \file{Makefile}           & GNU make 的配置文件 \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{模板的文件组成}
+%   \label{tab:files}
+% \end{table}
+%
+% 示例文档包括了常用的 \LaTeX{} 命令，建议新手从此入手，用自己的内容进行替换。
+%
+% 文件 \file{swjtuthesis.dtx} 是模板的原始代码文件，其可以自动生成文档类文件
+% \file{swjtuthesis.cls} 和模板使用说明文件 \file{swjtuthesis.pdf} 。
+% 原始模板文件仅供模板开发者使用，一般用户无需使用。
+%
+% \subsection{依赖宏包}
+%
+% \cls{swjtuthesis} 直接依赖的宏包有：
+% \pkg{amssymb},
+% \pkg{caption},
+% \pkg{calc},
+% \pkg{ctex},
+% \pkg{etoolbox},
+% \pkg{fancyhdr},
+% \pkg{geometry},
+% \pkg{hyperref},
+% \pkg{natbib},
+% \pkg{pifont},
+% \pkg{titletoc},
+% \pkg{tikz},
+% \pkg{upgreek},
+% \pkg{xparse}
+%
+% 注意 \pkg{ctex} 必须为 2.0 以上版本，所以要求 TeX Live、MacTeX、MikTeX
+% 的版本不低于 2015 年的发行版。
+%
+% \subsection{开始编译}
+%
+% \begin{enumerate}
+%
+% \item GNU make \\
+% Linux/Mac用户，可以直接使用 GNU make 工具，这是最简单的方法。
+% 编译论文 \file{main.pdf}：
+% \begin{shell}
+% make
+% \end{shell}
+% 编译说明文档 \file{swjtuthesis.pdf}：
+% \begin{shell}
+% make doc
+% \end{shell}
+% 另外还可以用 \shellcmd{make clean} 清理辅助文件。
+%
+% \item |latexmk| \\
+% Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较简单的方法，
+% 配置文件由 \file{.latexmkrc} 给出，其参数设置为 |-xelatex|，用户编译论文
+% 只需使用命令：
+% \begin{shell}
+% latexmk main
+% \end{shell}
+% 编译说明文档：
+% \begin{shell}
+% latexmk swjtuthesis.dtx
+% \end{shell}
+% 清理辅助文件可以用 \shellcmd{latexmk -c}。图形界面用户应参考编辑器的使用说明。
+%
+% \item 手动编译 \\
+% 手动编译是最繁琐的方法，用户可能需要运行多遍，以确保论文的交叉引用等信息全部正确。
+%
+% 编译论文 \file{main.pdf}：
+% \begin{shell}
+% xelatex main
+% bibtex main # 如果不使用 BibTeX 可以略过此步
+% xelatex main
+% xelatex main
+% \end{shell}
+% 编译说明文档 \file{swjtuthesis.pdf}：
+% \begin{shell}
+% xelatex swjtuthesis.dtx
+% makeindex -s gind.ist swjtuthesis.idx
+% makeindex -s gglo.ist -o swjtuthesis.gls swjtuthesis.glo
+% xelatex swjtuthesis.dtx
+% xelatex swjtuthesis.dtx
+% \end{shell}
+% \end{enumerate}
+%
+%
+%
+% \section{论文参数设置}
+%
+% \subsection{文档类参数}
+% \cls{swjtuthesis} 提供了若干选项，应在论文开始时设置，如：
+% \begin{latex}
+% \documentclass[doctor,english,pdf]{swjtuthesis}
+% \end{latex}
+%
+% 全部的选项见表~\ref{tab:options}
+% \begin{table}[htbp]
+%   \centering
+%   \begin{tabular}{lll}
+%     \toprule
+%       必需参数 & \opt{bachelor}     & 本科论文 \\
+%                & \opt{master}       & 硕士论文 \\
+%                & \opt{doctor}       & 博士论文 \\
+%     \midrule
+%       可选参数 & \opt{professional} & 专业学位 \\
+%                & \opt{chinese}      & 中文，默认 \\
+%                & \opt{english}      & English \\
+%                & \opt{print}        & 用于双面打印纸质论文，默认 \\
+%                & \opt{pdf}          & 单面打印，并保留超链接颜色 \\
+%                & \opt{super}        & 角标数字式参考文献引用标注，默认 \\
+%                & \opt{numbers}      & 数字式参考文献引用标注 \\
+%                & \opt{authoryear}   & 著者-出版年制参考文献 \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{文档类参数}
+%   \label{tab:options}
+% \end{table}
+%
+% 除了本模板的定义的选项，用户还可以使用其他参数，比如 \opt{fontset=fandol}，
+% 这些参数都将传给\cls{ctexbook}。
+%
+% \subsection{中文字体}
+% \cls{swjtuthesis} 只以 \pkg{xeCJK} 的方式提供中文支持，不支持 CJK 方式，
+% 所以用户必须使用UTF-8 编码保存源文件，并且用 |xelatex| 命令进行编译。
+%
+% 默认情况下，本模板可以利用 \pkg{ctex} 宏包的功能自动检测用户的操作系统类型，
+% 并选择合适的中文字库。默认配置的策略如表~\ref{tab:fonts}：
+% \begin{table}[htbp]
+%   \centering
+%   \begin{tabular}{cl}
+%     \toprule
+%       操作系统                 & 中文字库 \\
+%     \midrule
+%       macOS                    & 华文字库 \\
+%       Windows Vista 及以后版本 & 中易字库 + 微软雅黑 \\
+%       Windows XP 及以前版本    & 中易字库 \\
+%       其他                     & Fandol 字库 \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{默认字体配置}
+%   \label{tab:fonts}
+% \end{table}
+%
+% 用户也可以在调用文档类时加入选项 \opt{fontset=\meta{font}} 来显式地指定加载的字库，参见 \pkg{ctex}、\pkg{fontspec} 宏包。
+%
+% \subsection{英文字体}
+% 模板中使用了三种英文，包括衬线字体 Times New Roman、无衬线字体 Arial 和等宽字体
+% Courier New 。Windows和Mac下自带这三种英文字体，Linux下则需要从其他地方复制字体到
+% 本机。
+%
+%
+%
+% \section{论文内容}
+%
+% 本科论文的内容按如下顺序排列：
+% \begin{description}
+%   \item[封面] 中文封面、英文封面、原创性声明及授权使用说明
+%   \item[front matter] 致谢、目录、中文摘要、英文摘要
+%   \item[main matter] 正文章节、参考文献
+%   \item[appendix] 附录
+% \end{description}
+%
+% 硕博论文的内容按如下顺序排列：
+% \begin{description}
+%   \item[封面] 中文封面、英文封面、原创性声明及授权使用说明
+%   \item[front matter] 中文摘要、英文摘要、目录、图表及代码目录、符号说明
+%   \item[main matter] 正文章节、参考文献
+%   \item[appendix] 附录
+%   \item[back matter] 致谢、已发表论文列表
+% \end{description}
+%
+% 示例文档 \file{main.tex} 中的致谢、目录等章节的顺序，是按照研究生论文的格式组
+% 织内容的，\emph{本科生需要手动调整顺序}。
+%
+% 如果使用文档类选项 \opt{print} （默认），“原创性声明” 页则会加在封面后；
+% 若为 \opt{pdf}，则没有声明页。
+%
+%
+% \subsection{封面}
+%
+% “封面”的名字让人有些混淆，它既可以指由印刷厂统一制作的硬皮封面（cover），也可
+% 以指书打开后的第一页（title page）。在这里指的是后者，所以本模板从 title page
+% 开始。
+%
+% 封面由 \cs{maketitle} 命令生成，其中的各项信息使用 \cs{\meta{item}\marg{info}}
+% 的方式填写，本模板提供的命令如表~\ref{tab:covercmds}，其中带 |en| 前缀的命令是
+% 设置英文封面的命令：
+% \begin{table}[htbp]
+%   \centering
+%   \begin{tabular}{lll}
+%     \toprule
+%       命令              & 命令（英文）        & 说明 \\
+%     \midrule
+%       \cs{title}        & \cs{entitle}        & 论文标题 \\
+%       \cs{author}       & \cs{enauthor}       & 作者姓名 \\
+%       \cs{major}        & \cs{enmajor}        & 学科专业 \\
+%       \cs{supervisor}   & \cs{ensupervisor}   & 导师姓名 \\
+%       \cs{cosupervisor} & \cs{encosupervisor} & 副导师姓名 \\
+%       \cs{date}         & \cs{endate}         & 完成时间（默认为今天） \\
+%       \cs{secrettext}   & \cs{ensecrettext}   & 密级信息（默认不保密） \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{用来定义封面项目}
+%   \label{tab:covercmds}
+% \end{table}
+%
+% \subsection{摘要等环境}
+% \DescribeEnv{abstract}
+% \DescribeEnv{enabstract}
+% \DescribeEnv{notation}
+% \DescribeEnv{acknowledgements}
+% \DescribeEnv{publications}
+% 对于特殊的章节，\cls{swjtuthesis} 还提供了相应的环境，如表~\ref{tab:environments}。
+% \begin{table}[htbp]
+%   \centering
+%   \begin{tabular}{ll}
+%     \toprule
+%       环境                   & 说明 \\
+%     \midrule
+%       \env{abstract}         & 中文摘要 \\
+%       \env{enabstract}       & 英文摘要 \\
+%       \env{notation}         & 符号 \\
+%       \env{acknowledgements} & 致谢 \\
+%       \env{publications}     & 发表成果 \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{特殊章节的环境}
+%   \label{tab:environments}
+% \end{table}
+%
+% \DescribeMacro{\keywords}
+% \DescribeMacro{\enkeywords}
+% 其中，摘要的关键词应使用 \cs{keywords} 和 \cs{enkeywords} 命令，并包含在摘要环
+% 境中；
+% \begin{latex}
+% \begin{abstract}
+% 这里是摘要。
+% \keywords{论文；摘要；关键词}
+% \end{abstract}
+% \end{latex}
+%
+% \subsection{目录和图表}
+% 生成目录、插图和表格的索引命令分别如表~\ref{tab:tocs}：
+% \DescribeMacro{\tableofcontents}
+% \DescribeMacro{\listoffigures}
+% \DescribeMacro{\listoftables}
+% \begin{table}[htbp]
+%   \centering
+%   \begin{tabular}{ll}
+%     \toprule
+%       命令                  & 说明 \\
+%     \midrule
+%       \cs{tableofcontents}  & 目录 \\
+%       \cs{listoffigures}    & 图目录 \\
+%       \cs{listoftables}     & 表目录 \\
+%       \cs{listofalgorithms} & 算法目录 \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{各种目录的环境}
+%   \label{tab:tocs}
+% \end{table}
+%
+% \LaTeX{} 的图表索引，是通过 \cs{caption} 命令完成的，因此它们必须出现在浮动环
+% 境中，否则不被计数。
+% 如果不想让某个表格或者图片出现在索引里面，那么应使用命令 \cs{caption*}，
+% 这个命令不会给表格编号，也就是出来的只有标题文字而没有“表~xx”，“图~xx”。
+%
+% \DescribeMacro{\note}
+% 本模板还提供了 \cs{note\marg{text}} 命令，用于在图表中添加注释。
+%
+% \subsection{数学}
+%
+% 模板中定义了一些使用正体的数学符号（表~\ref{tab:symbols}）。
+% \begin{table}
+%   \centering
+%   \begin{tabular}{rl}
+%     \toprule
+%       符号                 & 命令 \\
+%     \midrule
+%       常数$\mathrm{e}$     & \cs{eu} \\
+%       复数单位$\mathrm{i}$ & \cs{iu} \\
+%       微分符号$\mathrm{d}$ & \cs{diff} \\
+%       $\arg\,\max$         & \cs{argmax} \\
+%       $\arg\,\min$         & \cs{argmin} \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{模板定义的数学符号}
+%   \label{tab:symbols}
+% \end{table}
+%
+% \file{swjtuextra.sty} 定义了数学定理格式 |swjtuplain|（默认使用）以及一些常用的
+% 环境，如表~\ref{tab:theorems}。
+% \begin{table}[htbp]
+%   \centering
+%   \begin{tabular}{*{5}{l}}
+%     \toprule
+%       theorem     & assertion  & axiom   & corollary & lemma \\
+%       定理        & 断言       & 公理    & 推论      & 引理  \\
+%     \midrule
+%       proposition & definition & example & remark    & proof \\
+%       命题        & 定义       & 例      & 注        & 证明  \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{数学定理相关的环境}
+%   \label{tab:theorems}
+% \end{table}
+%
+% 注意\env{proof} 环境与其它不同的是，其第二个参数会完全取代“证明”标题，
+% 并且会在末尾加一个 \cs{qed}。
+%
+% \DescribeMacro{\newtheorem}
+% 用户可以使用 \cs{newtheorem} 命令来分别定义新的数学环境，比如定义并使用“传说”环境：
+% \begin{latex}
+% \newtheorem{legend}{传说}
+% \begin{legend}
+%     龙生龙，凤生凤，华罗庚的弟子会打洞。
+% \end{legend}
+% \end{latex}
+%
+% \DescribeMacro{\newtheoremstyle}
+% 用户还可以用 \cs{newtheoremstyle} 定义环境的格式，具体参见 \pkg{amsthm} 宏包。
+%
+% \subsection{参考文献}
+%
+% 参考文献和引用标注支持的风格见表~\ref{tab:bib}，默认为角标数字式，
+% \begin{table}[htbp]
+%   \centering
+%   \begin{tabular}{lll}
+%     \toprule
+%       参考文献列表  & 引用标注    & 参数 \\
+%     \midrule
+%       顺序编码制    & 角标数字    & super \\
+%                     & 数字        & numbers \\
+%       著者-出版年制 & 著者-出版年 & authoryear \\
+%     \bottomrule
+%   \end{tabular}
+%   \caption{参考文献列表和引用标注风格}
+%   \label{tab:bib}
+% \end{table}
+%
+% 如果要使用其他风格，可以在载入文档类时加入相应的参数：
+% \begin{latex}
+% \documentclass[doctor,authoryear]{swjtuthesis}
+% \end{latex}
+%
+% 在使用著者-出版年制时，需要将中文参考文献按照拼音或者笔画排序，
+% 然而 Unicode 中的汉字是根据康熙字典排序的，
+% 而且由于 \BibTeX{} 功能的局限性，我们无法根据著者姓名读取拼音，
+% 所以只能手动处理：在 bib 数据库中设置对应条目的 key 域为著者姓名拼音，如：
+% \begin{latex}
+% @book{capital,
+%   author = {马克思 and 恩格斯},
+%   key    = {ma3 ke4 si1   en1 ge2 si1},
+%   ...
+% \end{latex}
+%
+% \BibTeX{} 默认情况下可以自动识别文献语言，并自动处理文献类型和载体类型标识，
+% 但是在少数情况下需要用户手动指定，如：
+% \begin{latex}
+% @article{citekey,
+%   language = {japanese},
+%   mark     = {M},
+%   medium   = {CD},
+%   ...
+% \end{latex}
+% 可选的语言有 english, chinese, japanese, russian，
+% 目前对日语和俄语的支持较为有限。
+%
+% 在使用 \BibTeX{} 时，默认会将标题域的第一个字母大写，其余小写。
+% 对于一些需要强制大写的专有名词（如人名“Riemann”），可以在 bib 数据库中将其用
+% 大括号括起来，比如：
+% \begin{latex}
+% @book{forster,
+%   ...
+%   title = {Lectures on {Riemann} surfaces},
+%   ...
+% \end{latex}
+%
+%
+%
+% \clearpage
+% \appendix
+%
+% \section{代码实现}
+% \label{sec:code}
+%
+% \subsection{声明选项}
+%    \begin{macrocode}
+%<*class>
+\newif\if@swjtu@doctor
+\newif\if@swjtu@master
+\newif\if@swjtu@bachelor
+\newif\if@swjtu@professional
+\newif\if@swjtu@english
+\newif\if@swjtu@numerical
+\newif\if@swjtu@super
+\newif\if@swjtu@pdf
+\DeclareOption{doctor}{\@swjtu@doctortrue\@swjtu@masterfalse\@swjtu@bachelorfalse}
+\DeclareOption{master}{\@swjtu@doctorfalse\@swjtu@mastertrue\@swjtu@bachelorfalse}
+\DeclareOption{bachelor}{\@swjtu@doctorfalse\@swjtu@masterfalse\@swjtu@bachelortrue}
+\DeclareOption{professional}{\@swjtu@professionaltrue}
+\DeclareOption{chinese}{\@swjtu@englishfalse}
+\DeclareOption{english}{\@swjtu@englishtrue}
+\DeclareOption{print}{\@swjtu@pdffalse}
+\DeclareOption{pdf}{\@swjtu@pdftrue}
+\DeclareOption{super}{\@swjtu@numericaltrue\@swjtu@supertrue}
+\DeclareOption{numbers}{\@swjtu@numericaltrue\@swjtu@superfalse}
+\DeclareOption{authoryear}{\@swjtu@numericalfalse}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\ExecuteOptions{doctor,chinese,print,super}
+\ProcessOptions\relax
+\newif\if@swjtu@addtocspace
+\if@swjtu@bachelor
+    \@swjtu@addtocspacetrue
+\fi
+\if@swjtu@english
+  \PassOptionsToClass{scheme=plain}{ctexbook}
+\fi
+\if@swjtu@pdf
+  \PassOptionsToClass{oneside}{book}
+\fi
+%    \end{macrocode}
+%
+% 默认情况下 \pkg{fontspec} 会将 \cs{mathrm} 的字体更改为 Times New Roman，
+% 而 \cs{mathnormal} 依然为 Computer Modern，比 Times New Roman 要细，
+% 所以设置 \pkg{fontspec} 不处理数学字体
+%    \begin{macrocode}
+\PassOptionsToPackage{no-math}{fontspec}
+%    \end{macrocode}
+%
+% 载入 \cls{ctexbook} 文档类，注意要求 \pkg{ctex} 为 2.0 以及更高的版本。
+% \changes{v1.0}{2018/03/15}{正文新的一章另面起}
+%    \begin{macrocode}
+\LoadClass[UTF8, a4paper, openany, zihao=-4]{ctexbook}[2018/03/15]
+\RequirePackage{etoolbox}
+%    \end{macrocode}
+% 检测 ctexbook 版本，如果版本过低会报错
+%    \begin{macrocode}
+\@ifclasslater{ctexbook}{2015/05/14}{}{%
+    \ClassError{swjtuthesis}{%
+        Requiring ctex 2.0 or later version!\MessageBreak
+        Please update the package using your\MessageBreak
+        TeX package manager or from CTAN
+    }{%
+        See swjtuthesis.pdf for more detailed update guide.
+    }
+}
+%    \end{macrocode}
+%
+% \subsection{设置西文字体}
+% 设置西文字体，中文字体已经由 \pkg{ctex} 自动设置，
+%    \begin{macrocode}
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+%    \end{macrocode}
+%
+% \subsection{超链接与书签}
+%    \begin{macrocode}
+\RequirePackage{hyperref}
+\hypersetup{
+    bookmarksopen=true,
+    bookmarksnumbered=true,
+    bookmarksopenlevel=1,
+    CJKbookmarks=true,
+    pdfborder=0 0 0,
+    unicode=true,
+    linktoc=all,
+}
+%    \end{macrocode}
+% 如果为 |pdf| 样式，设置 hyperlink 颜色
+%    \begin{macrocode}
+\if@swjtu@pdf
+    \hypersetup{
+        colorlinks=true,
+        allcolors=blue,
+    }
+\fi
+%    \end{macrocode}
+% 设置 pdf 的信息
+%    \begin{macrocode}
+\AtBeginDocument{
+    \hypersetup{
+        pdftitle={\swjtu@title},
+        pdfauthor={\swjtu@author}
+    }
+}
+%    \end{macrocode}
+%
+% \subsection{定义命令}
+% \begin{macro}{\setfontsize}
+% 直接设置字体大小的命令，可选设置行距，默认单倍行距。
+% 注意：该命令的定义中的空格会影响最终效果，因而需要在一行内写完命令，见
+% \href{https://github.com/swjtutug/swjtuthesis/issues/42}{Issue 42}
+%    \begin{macrocode}
+\RequirePackage{xparse}
+\NewDocumentCommand\setfontsize{mo}{\IfValueTF{#2}{\fontsize{#1}{#2}}{\fontsize{#1}{2\dimexpr#1}}\linespread{1}\selectfont\relax}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\zhspace}
+% 生成整数倍汉字宽度的空格，默认为 1
+%    \begin{macrocode}
+\newcommand\zhspace[1][1]{\hspace{#1\ccwd}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\swjtu@underline}
+% 生成空的下划线
+%    \begin{macrocode}
+\newcommand\swjtu@underline[2][6em]{%
+    \hskip1pt\underline{\hb@xt@ #1{\hss#2\hss}}\hskip3pt\relax
+}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\swjtu@define@term}
+% 声明“作者姓名”等项目的命令
+%    \begin{macrocode}
+\def\swjtu@define@term#1{
+    \expandafter\gdef\csname #1\endcsname##1{
+        \expandafter\gdef\csname swjtu@#1\endcsname{##1}
+    }
+    \csname #1\endcsname{}
+}
+\swjtu@define@term{professionaltype}
+\swjtu@define@term{title}
+\swjtu@define@term{secrettext}
+\swjtu@define@term{author}
+\swjtu@define@term{major}
+\swjtu@define@term{supervisor}
+\swjtu@define@term{cosupervisor}
+\swjtu@define@term{date}
+\swjtu@define@term{enprofessionaltype}
+\swjtu@define@term{entitle}
+\swjtu@define@term{ensecrettext}
+\swjtu@define@term{enauthor}
+\swjtu@define@term{enmajor}
+\swjtu@define@term{ensupervisor}
+\swjtu@define@term{encosupervisor}
+\swjtu@define@term{endate}
+\date{\zhnumsetup{time=Chinese}\zhtoday}
+\endate{\CTEX@todayold}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{设置语言}
+% 这里设置了中英文的各种名字。
+%    \begin{macrocode}
+\if@swjtu@english
+  \renewcommand\figurename{Fig.}
+  \newcommand\swjtu@notesname{\textbf{Notes}: }
+  \newcommand\swjtu@acknowledgementsname{Acknowledgements}
+  \newcommand\swjtu@publicationsname{Publications}
+  \newcommand\swjtu@notationname{Notation}
+\else
+  \renewcommand\listfigurename{图目录}
+  \renewcommand\listtablename{表目录}
+  \newcommand\swjtu@notesname{\textbf{注}：}
+  \newcommand\swjtu@acknowledgementsname{致谢}
+  \newcommand\swjtu@publicationsname{在读期间发表的学术论文与取得的研究成果}
+  \newcommand\swjtu@notationname{符号说明}
+  \def\equationautorefname~#1\null{公式~(#1)\null}%
+  \def\footnoteautorefname{脚注}%
+  \def\itemautorefname~#1\null{第~#1~项\null}%
+  \def\figureautorefname{图}%
+  \def\tableautorefname{表}%
+  \def\partautorefname~#1\null{第~#1~部分\null}%
+  \def\appendixautorefname{附录}%
+  \def\chapterautorefname~#1\null{第~#1~章\null}%
+  \def\sectionautorefname~#1\null{第~#1~节\null}%
+  \def\subsectionautorefname~#1\null{第~#1~小节\null}%
+  \def\subsubsectionautorefname~#1\null{第~#1~小小节\null}%
+  \def\paragraphautorefname~#1\null{第~#1~段\null}%
+  \def\subparagraphautorefname~#1\null{第~#1~小段\null}%
+  \def\theoremautorefname{定理}%
+  \def\pageautorefname~#1\null{第~#1~页\null}%
+\fi
+%    \end{macrocode}
+%
+% \subsection{页面设置}
+% 首先用 \pkg{geometry} 宏包设置纸张和页面。
+%    \begin{macrocode}
+\RequirePackage{geometry}
+\geometry{
+    paper=a4paper,
+    top=2.54cm, bottom=2.54cm,
+    left=3.17cm, right=3.17cm,
+    headheight=0.75cm, headsep=0.29cm,
+    footskip=0.79cm}
+%    \end{macrocode}
+%
+% 再用 \pkg{fancyhdr} 宏包设置页眉页码。
+% \changes{v1.0}{2018/03/15}{页码全部居中}
+% \changes{v1.0.0}{2018/03/16}{修正本科生的页码}
+%
+%    \begin{macrocode}
+\RequirePackage{fancyhdr}
+\renewcommand{\headrulewidth}{0.4pt}
+\if@swjtu@bachelor
+  \fancypagestyle{swjtu@headings}{%
+    \fancyhf{}%
+    \fancyhead[C]{\setfontsize{9\bp@}西南交通大学本科毕业论文}%
+    \fancyfoot[C]{\setfontsize{9\bp@}\thepage}}%
+\else
+  \fancypagestyle{swjtu@headings}{%
+    \fancyhf{}%
+    \fancyhead[C]{\setfontsize{10.5\bp@}\leftmark}%
+    \fancyfoot[C]{\setfontsize{10.5\bp@}\thepage}}%
+\fi
+\fancypagestyle{swjtu@notation}{\fancyfoot{}}
+\pagestyle{swjtu@headings}
+\patchcmd\chaptermark{#1}{\protect\spacetitle{#1}}{}{}
+%    \end{macrocode}
+%
+% 空白页不加页眉。
+% \changes{v1.0}{2018/03/15}{空白页不加页眉}
+%    \begin{macrocode}
+\renewcommand*{\cleardoublepage}{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+%    \end{macrocode}
+%
+% 将 frontmatter 的页码改为大写的罗马数字，并调整页面风格。
+%    \begin{macrocode}
+\g@addto@macro\frontmatter{%
+  \if@swjtu@bachelor
+    \pagenumbering{gobble}%
+  \else
+    \pagenumbering{Roman}%
+  \fi}
+\renewcommand\mainmatter{%
+  \if@swjtu@bachelor
+    \clearpage
+  \else
+    \cleardoublepage
+    \pagenumbering{arabic}%
+  \fi
+  \@mainmattertrue
+}
+\renewcommand\chapter{%
+    \if@openright\cleardoublepage\else\clearpage\fi
+    \global\@topnum\z@
+    \@afterindenttrue
+    \if@swjtu@bachelor
+      \if@mainmatter
+        \ctexset{chapter/format = \centering\sffamily\setfontsize{16\bp@}}
+      \else
+        \ctexset{chapter/format = \centering\sffamily\setfontsize{18\bp@}}
+      \fi
+      \if@swjtu@addtocspace
+        \addtocontents{toc}{\protect\addvspace{12\bp@}}%
+      \fi
+    \fi
+    \secdef\@chapter\@schapter
+}
+%    \end{macrocode}
+%
+% \subsection{章节标题}
+%
+% 用 \pkg{ctex} 的接口设置全局的章节标题格式，注意由于 \pkg{ctex} 2.1 以下版本的 bug，
+% chapter 的 nameformat 和 titleformat 的这两行必须置空。
+%
+% \pkg{ctex} 2.4.3 以下版本的bug会导致章节标题前后的距离的实际值偏大，
+% 临时的解决方案是手动调整，偏移值为beforeskip=-31bp, afterskip=-10bp。
+% 但是\pkg{ctex} 2.2 前的beforeskip的符号有特殊意义，所以临时解决方案只用于
+% \pkg{ctex} 2.2 以及以上版本。
+%
+% 首先设置带圈的数字：
+%
+%    \begin{macrocode}
+\RequirePackage{pifont}
+\def\swjtu@textcircled#1{%
+  \ifnum\value{#1} >9
+    \ClassError{swjtuthesis}%
+      {Too many footnotes in this page.}{Keep footnote less than 10.}
+  \fi
+  \ding{\the\numexpr\value{#1}+191\relax}}
+%    \end{macrocode}
+%
+% 研究生规定章题为两字时中间空两字，三字时空一字，四字时空半字，四字以上不空。
+% 另外，\pkg{stringstrings} 宏包会导致范数命令 \verb+\|+ 被修改，所以用
+% \pkg{xstring}。
+% \changes{v1.0}{2018/03/15}{章题为两字时中间空两字，三字时空一字，
+% 四字时空半字，四字以上不空}
+% \changes{v1.0.1}{2018/03/15}{修正范数命令失效的错误}
+%
+%    \begin{macrocode}
+\RequirePackage{xstring}
+\newcommand\spacetitle[1]{%
+  \StrLen{#1}[\titlelength]%
+  \if@swjtu@bachelor
+    \if@mainmatter\relax\else
+      \ifnum\titlelength=2\ziju{1}\else
+        \ifnum\titlelength=4\ziju{0.5}%
+        \fi
+      \fi
+    \fi
+  \else
+    \ifnum\titlelength=2\ziju{2}\else
+      \ifnum\titlelength=3\ziju{1}\else
+        \ifnum\titlelength=4\ziju{0.5}%
+        \fi
+      \fi
+    \fi
+  \fi#1}
+%    \end{macrocode}
+%
+% 另外摘要、参考文献等章节在底层也是用 \cs{chapter} 实现的。
+% 这一部分以后可能重新实现 \cs{chapter}。
+% \changes{v1.0}{2018/03/15}{新增二级以下节标题的缩进}
+% \changes{v1.0}{2018/03/15}{二级以下节标题编号下采用“1.”、“(1)”、
+%   “\textcircled{\footnotesize{}1}”}
+% \changes{v1.0.1}{2018/03/15}{修正 subsubsection 的前后距离}
+%
+%    \begin{macrocode}
+\setcounter{secnumdepth}{5}
+\ctexset{
+    chapter = {
+        format      = \centering\sffamily\bfseries\setfontsize{16\bp@},
+        nameformat  = {},
+        titleformat = \spacetitle,
+        number      = \thechapter,
+        aftername   = \hspace{\ccwd},
+        beforeskip  = -7\bp@, % 24bp - 31bp
+        afterskip   = 8\bp@, % 18bp - 10bp
+        % fixskip   = true, % will be used in future version
+    },
+    section = {
+        format     = \sffamily\setfontsize{14\bp@},
+        aftername  = \hspace{\ccwd},
+        beforeskip = 24\bp@,
+        afterskip  = 6\bp@,
+    },
+    subsection = {
+        format     = \sffamily\setfontsize{13\bp@},
+        aftername  = .\hspace{\ccwd},
+        indent     = 2\ccwd,
+        beforeskip = 12\bp@,
+        afterskip  = 6\bp@,
+    },
+    subsubsection = {
+        format     = \sffamily\setfontsize{12\bp@},
+        number     = \arabic{subsubsection},
+        aftername  = .\hspace{\ccwd},
+        indent     = 3\ccwd,
+        beforeskip = 12\bp@,
+        afterskip  = 6\bp@,
+    },
+    paragraph = {
+        format     = \sffamily\setfontsize{12\bp@},
+        number     = (\arabic{paragraph}),
+        aftername  = \hspace{\ccwd},
+        indent     = 3\ccwd,
+        beforeskip = \z@,
+        afterskip  = \z@,
+        runin      = false,
+    },
+    subparagraph = {
+        format     = \sffamily\setfontsize{12\bp@},
+        number     = \swjtu@textcircled{subparagraph},
+        aftername  = \hspace{\ccwd},
+        indent     = 3\ccwd,
+        beforeskip = \z@,
+        afterskip  = \z@,
+        runin      = false,
+    },
+}
+%    \end{macrocode}
+%
+% 设置本科生的章节标题。
+%    \begin{macrocode}
+\if@swjtu@bachelor
+    \setcounter{secnumdepth}{4}
+    \ctexset{
+        chapter={
+            format = \centering\sffamily\setfontsize{16\bp@},
+            number = \chinese{chapter},
+        },
+        section = {
+            format = \centering\sffamily\setfontsize{15\bp@},
+            name   = {第,节},
+            number = \chinese{section},
+        },
+        subsection = {
+            format    = \sffamily\setfontsize{14\bp@},
+            number    = \chinese{subsection},
+            aftername = {、},
+        },
+        subsubsection = {
+            format    = {\rmfamily\setfontsize{12\bp@}},
+            number    = \arabic{subsubsection},
+            aftername = {.\ },
+            indent    = \ccwd,
+        },
+        paragraph = {
+            format    = {\rmfamily\setfontsize{12\bp@}},
+            name      = {(,)},
+            number    = \arabic{paragraph},
+            aftername = {\ },
+            indent    = 2\ccwd,
+        },
+        subparagraph = {
+            format    = {},
+            name      = {},
+            indent    = 2\ccwd,
+        },
+    }
+\fi
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+\newcounter{swjtu@pdfbookmark}
+\NewDocumentCommand\swjtu@chapter{o m}{%
+  \if@openright\cleardoublepage\else\clearpage\fi%
+  \addtocounter{swjtu@pdfbookmark}\@ne
+  \IfValueTF{#1}{%
+    \pdfbookmark[0]{#1}{swjtuchapter.\theswjtu@pdfbookmark}%
+    \chaptermark{#1}%
+  }{%
+    \pdfbookmark[0]{#2}{swjtuchapter.\theswjtu@pdfbookmark}%
+    \chaptermark{#2}%
+  }%
+  \chapter*{#2}}
+%    \end{macrocode}
+%
+% \subsection{封面}
+% \begin{macro}{\maketitle}
+% 重新定义 \cs{maketitle}，调用 \cs{make@cntitle}, \cs{make@entitle} 分别生成中、英文封面。
+% 若论文选项 \opt{print} 有效，声明页则会加在封面后，若为 \opt{pdf}，则没有声明页。
+%    \begin{macrocode}
+\renewcommand\maketitle{%
+    \newgeometry{
+        top=3.8cm, bottom=3.8cm,
+        left=3.2cm, right=3.2cm,
+        headheight=0cm, headsep=0.8cm,
+        footskip=0.8cm}
+    \pagenumbering{gobble}
+    \pdfbookmark[0]{封面}{titlepage}
+    \make@cntitle \cleardoublepage
+    \pdfbookmark[0]{Title page}{entitlepage}
+    \make@entitle \cleardoublepage
+    \restoregeometry
+    \if@swjtu@bachelor\relax\else
+        \if@swjtu@pdf\relax\else%
+            \pdfbookmark[0]{原创性声明}{statement}
+            \make@statement \cleardoublepage
+        \fi
+    \fi
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% 定义一些常量。
+%    \begin{macrocode}
+\if@swjtu@doctor
+  \if@swjtu@professional
+    \newcommand\swjtu@thesisname{专业博士学位论文}%
+  \else
+    \newcommand\swjtu@thesisname{博士学位论文}%
+  \fi
+  \newcommand\swjtu@enthesisname{A dissertation for doctor's degree}%
+\else
+  \if@swjtu@master
+    \if@swjtu@professional
+      \newcommand\swjtu@thesisname{专业硕士学位论文}
+    \else
+      \newcommand\swjtu@thesisname{硕士学位论文}
+    \fi
+    \newcommand\swjtu@enthesisname{A dissertation for master's degree}
+  \else
+    \newcommand\swjtu@thesisname{学士学位论文}
+    \newcommand\swjtu@enthesisname{A dissertation for bachelor's degree}
+  \fi
+\fi
+\newcommand\swjtu@supervisorline{%
+  \ifx\swjtu@encosupervisor\@empty%
+    Supervisor: \swjtu@ensupervisor%
+  \else%
+    Supervisors: \swjtu@ensupervisor, \swjtu@encosupervisor%
+  \fi}
+%    \end{macrocode}
+%
+% \begin{macro}{\vpostext}
+% 这里使用 \pkg{tikz} 工具设计封面。
+% \cs{vpostext}\marg{vpos}\marg{text} 命令用来放置居中的文字，
+% 有两个参数，第一个为距离纸的顶端的距离，第二个为要放置的文字
+%    \begin{macrocode}
+\RequirePackage{tikz}
+\newcommand\vpostext[2]{%
+    \tikz[remember picture,overlay]%
+        \node [yshift=-#1] at (current page.north) [below,align=flush center]%
+            {\parbox{\textwidth}{\centering#2}};}
+%    \end{macrocode}
+% \end{macro}
+%
+% 现在开始设计封面。如果“学科专业” 一栏放不下，可以将文字装进一个 \cs{parbox}，比如\\
+% |\parbox[t]{5cm}{A VERY LONG TEXT}|
+%    \begin{macrocode}
+\newcommand\make@cntitle{%
+    \begin{titlepage}%
+        \tikz[remember picture,overlay]%
+            \node [yshift=-4cm] at (current page.north) [below,align=flush center]%
+                {\parbox{\textwidth}{\raggedleft\fangsong\setfontsize{14\bp@}\swjtu@secrettext}};%
+        \vpostext{4cm}{\includegraphics[height=37\bp@]{figures/swjtu_logo_text}}%
+        \if@swjtu@professional
+          \vpostext{6.3cm}{\sffamily\setfontsize{56\bp@}\ziju{-0.09}\swjtu@thesisname}%
+          \vpostext{9cm}{\setfontsize{26\bp@}\swjtu@professionaltype}%
+          \vpostext{10.3cm}{\includegraphics[height=4.7cm]{figures/swjtu_logo_fig}}%
+          \vpostext{16.3cm}{\sffamily\bfseries\setfontsize{26\bp@}\swjtu@title}%
+        \else
+          \vpostext{6.3cm}{\sffamily\setfontsize{56\bp@}\swjtu@thesisname}%
+          \vpostext{9.8cm}{\includegraphics[height=4.7cm]{figures/swjtu_logo_fig}}%
+          \vpostext{16.3cm}{\sffamily\bfseries\setfontsize{26\bp@}\swjtu@title}%
+        \fi
+        \tikz[remember picture,overlay]%
+            \node [xshift=4.6cm,yshift=-20.3cm] at (current page.north west)%
+            [below right,align=left] {%
+                \setfontsize{16\bp@}%
+                \begin{tabular}{@{}l@{\hspace{\ccwd}}l@{}}%
+                    \textsf{作者姓名：} & \swjtu@author \\%
+                    \textsf{学科专业：} & \swjtu@major \\%
+                    \textsf{导师姓名：} & \swjtu@supervisor\quad\swjtu@cosupervisor \\%
+                    \textsf{完成时间：} & \swjtu@date%
+                \end{tabular}};%
+    \end{titlepage}}
+%    \end{macrocode}
+% \begin{macro}{\make@entitle}
+% 由于《规范》对宽度的限制，可能一行里放不下，需要使用 \cs{parbox}
+%    \begin{macrocode}
+\newcommand\make@entitle{%
+    \begin{titlepage}%
+        \tikz[remember picture,overlay]%
+            \node [yshift=-4cm] at (current page.north) [below,align=flush center]%
+                {\parbox{\textwidth}{\raggedleft\setfontsize{14\bp@}\swjtu@ensecrettext}};%
+        \vpostext{3.9cm}{\sffamily\setfontsize{20\bp@}[30\bp@]%
+            Southwest Jiaotong University}%
+        \vpostext{4.9cm}{\sffamily\setfontsize{26\bp@}[30\bp@]\swjtu@enthesisname}%
+        \if@swjtu@professional
+          \vpostext{6.2cm}{\setfontsize{16\bp@}\swjtu@enprofessionaltype}%
+          \vpostext{8.9cm}{\includegraphics[height=5.1cm]{figures/swjtu_logo_fig}}%
+          \vpostext{15cm}{\sffamily\bfseries\setfontsize{26\bp@}[30\bp@]\swjtu@entitle}%
+        \else
+          \vpostext{7.9cm}{\includegraphics[height=5.1cm]{figures/swjtu_logo_fig}}%
+          \vpostext{14.2cm}{\sffamily\bfseries\setfontsize{26\bp@}[30\bp@]\swjtu@entitle}%
+        \fi
+        \tikz[remember picture,overlay]%
+            \node [xshift=4.4cm,yshift=-20.2cm] at (current page.north west)%
+            [below right,align=left] {%
+                \setfontsize{16\bp@}[30\bp@]%
+                \begin{tabular}{@{}l@{}}%
+                    Author:        \swjtu@enauthor \\%
+                    Speciality:    \swjtu@enmajor \\%
+                    \swjtu@supervisorline \\%
+                    Finished time: \swjtu@endate%
+                \end{tabular}};%
+    \end{titlepage}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{原创性声明}
+% 定义原创性声明
+%    \begin{macrocode}
+\newcommand{\swjtu@declaretext} {
+本人声明所呈交的学位论文，是本人在导师指导下进行研究工作所取得的成果。
+除已特别加以标注和致谢的地方外，论文中不包含任何他人已经发表或撰写过
+的研究成果。与我一同工作的同志对本研究所做的贡献均已在论文中作了明确的说明。
+}
+\newcommand{\swjtu@authorization}{
+作为申请学位的条件之一，学位论文著作权拥有者授权西南交通大学拥有
+学位论文的部分使用权，即：学校有权按有关规定向国家有关部门或机构送交
+论文的复印件和电子版，允许论文被查阅和借阅，可以将学位论文编入《中国
+学位论文全文数据库》等有关数据库进行检索，可以采用影印、缩印或扫描等
+复制手段保存、汇编学位论文。本人提交的电子文档的内容和纸质论文的内容
+相一致。
+
+保密的学位论文在解密后也遵守此规定。
+}
+\newcommand\make@statement{
+    \thispagestyle{empty}
+    \setfontsize{12\bp@}[20\bp@]
+    \vspace*{-0.15cm}
+    \begin{center}
+      \setfontsize{16\bp@}\textbf{西南交通大学学位论文原创性声明}
+    \end{center}
+    \vskip 0.3cm
+
+    \swjtu@declaretext\par
+
+    \vskip 0.7cm
+    \begin{tabular}{p{7cm}p{7cm}}
+      作者签名：\swjtu@underline[7.4em]{} & 签字日期：\swjtu@underline[7.4em]{}
+    \end{tabular}
+    \vskip 2.6cm
+
+    \begin{center}
+      \setfontsize{16\bp@}\textbf{西南交通大学学位论文授权使用声明}
+    \end{center}
+    \vskip 0.3cm
+
+    \swjtu@authorization\par
+    \vskip 0.5cm
+    $\square$公开 \hspace{0.4cm} $\square$保密（\swjtu@underline[2em]{}年）
+
+    \vskip 0.5cm
+
+    {\renewcommand{\arraystretch}{2.0}
+    \begin{tabular}{p{7cm}p{7cm}}
+      作者签名：\swjtu@underline[7.4em]{} & 导师签名：\swjtu@underline[7.4em]{} \\
+      签字日期：\swjtu@underline[7.4em]{} & 签字日期：\swjtu@underline[7.4em]{} \\
+    \end{tabular}}
+}
+%    \end{macrocode}
+%
+% \subsection{摘要}
+%
+% \begin{environment}{abstract}
+% 中文摘要环境
+% \changes{v1.0}{2018/03/15}{摘要关键词间隔符号改用分号}
+% \changes{v1.0}{2018/03/15}{摘要不再加入目录}
+%    \begin{macrocode}
+\newenvironment{abstract}{%
+    \if@swjtu@bachelor
+        \chapter{中文内容摘要}%
+    \else
+        \swjtu@chapter{摘要}%
+    \fi
+  }{}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{environment}{enabstract}
+% 英文摘要环境
+%    \begin{macrocode}
+\newenvironment{enabstract}{%
+    \if@swjtu@bachelor
+        \chapter[英文内容摘要]{Abstract}
+    \else
+        \swjtu@chapter[Abstract]{ABSTRACT}
+    \fi}{}
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{macro}{keywords}
+% 中文关键词
+%    \begin{macrocode}
+\newcommand\keywords[1]{%
+  \par\phantom{empty line}\par\noindent\hangindent=4\ccwd\relax%
+  \textbf{关键词}：#1}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{enkeywords}
+% 英文关键词
+%    \begin{macrocode}
+\newcommand\enkeywords[1]{%
+  \par\phantom{empty}\par\noindent\hangindent=5.3em\relax%
+  \textbf{Key Words}: #1}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{目录}
+%
+% \begin{macro}{\tableofcontents}
+% 为了在 PDF 书签中加入目录，重新定义 \cs{tableofcontents}
+%    \begin{macrocode}
+\renewcommand\tableofcontents{%
+    \cleardoublepage%
+    \if@swjtu@bachelor\pagenumbering{arabic}\fi
+    \swjtu@chapter{\contentsname}%
+    \@starttoc{toc}}
+%    \end{macrocode}
+% \end{macro}
+%
+% 目录一般由正文第1章（或绪论、引言）开始，列至三级标题（如2.2.2）即可，目录之前
+% 的内容及目录本身不列入目录内。
+% 一级标题顶格书写，二级标题缩进一字，三级标题缩进两字。
+% 由于 \pkg{ctex} 新引入了 \opt{tocline}，导致chatper 的前标题空白多了0.3em。
+% 下面用 \pkg{titletoc} 宏包设置每级目录的格式
+%    \begin{macrocode}
+\RequirePackage{titletoc}
+\newcommand\swjtu@leaders{\titlerule*[0.5pc]{$\cdot$}}
+\if@swjtu@bachelor
+    \titlecontents{chapter}
+        [\z@]
+        {\setfontsize{12\bp@}[20\bp@]}
+        {\contentspush{\thecontentslabel\hskip\ccwd\relax}}
+        {}{\swjtu@leaders\contentspage}
+    \titlecontents{section}
+        [\ccwd]
+        {\setfontsize{12\bp@}[20\bp@]}
+        {\contentspush{\thecontentslabel\hskip\ccwd\relax}}
+        {}{\swjtu@leaders\contentspage}
+    \titlecontents{subsection}
+        [2\ccwd]
+        {\setfontsize{12\bp@}[20\bp@]}
+        {\contentspush{\thecontentslabel、}}
+        {}{\swjtu@leaders\contentspage}
+\else
+    \titlecontents{chapter}
+        [\z@]
+        {\addvspace{6\bp@}\setfontsize{14\bp@}[20\bp@]}
+        {\contentspush{\thecontentslabel\unskip\hskip\ccwd\relax}}
+        {}{\swjtu@leaders\setfontsize{12\bp@}[20\bp@]\contentspage}
+    \titlecontents{section}
+        [\ccwd]
+        {\setfontsize{12\bp@}[20\bp@]}
+        {\contentspush{\thecontentslabel\hskip\ccwd\relax}}
+        {}{\swjtu@leaders\setfontsize{12\bp@}[20\bp@]\contentspage}
+    \titlecontents{subsection}
+        [2\ccwd]
+        {\setfontsize{10.5\bp@}[20\bp@]}
+        {\contentspush{\thecontentslabel\hskip\ccwd\relax}}
+        {}{\swjtu@leaders\setfontsize{12\bp@}[20\bp@]\contentspage}
+\fi
+%    \end{macrocode}
+%
+% 同时设置图、表的目录格式
+%    \begin{macrocode}
+\titlecontents{figure}
+    [\ccwd]
+    {\addvspace{6\bp@}\setfontsize{12\bp@}}
+    {\thecontentslabel\hspace*{0.5em}}
+    {}{\swjtu@leaders\contentspage}
+\titlecontents{table}
+    [\ccwd]
+    {\addvspace{6\bp@}\setfontsize{12\bp@}}
+    {\thecontentslabel\hspace*{0.5em}}
+    {}{\swjtu@leaders\contentspage}
+%    \end{macrocode}
+%
+% \begin{macro}{\listoffigures}
+    % 为了让图目录另页起，重新定义 \cs{listoffigures}
+%    \begin{macrocode}
+\renewcommand\listoffigures{%
+    \if@swjtu@bachelor\clearpage\else\cleardoublepage\fi
+    \swjtu@chapter{\listfigurename}%
+    \@starttoc{lof}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\listoftables}
+    % 表目录同样
+%    \begin{macrocode}
+\renewcommand\listoftables{%
+    \if@swjtu@bachelor\clearpage\else\cleardoublepage\fi
+    \swjtu@chapter{\listtablename}%
+    \@starttoc{lot}}
+%    \end{macrocode}
+% \end{macro}
+%
+% 为了让本科生的目录每章之间多空一行，重新定义 \cs{mainmatter}, \cs{backmatter},
+% \cs{appendix}
+%    \begin{macrocode}
+\if@swjtu@bachelor
+    \g@addto@macro\frontmatter{\@swjtu@addtocspacefalse}%
+    \g@addto@macro\mainmatter{\@swjtu@addtocspacetrue}%
+    \g@addto@macro\backmatter{\@swjtu@addtocspacefalse}%
+    \g@addto@macro\appendix{\@swjtu@addtocspacefalse}%
+\fi
+%    \end{macrocode}
+%
+% \subsection{符号说明}
+%
+% \begin{environment}{notation}
+% 标题字体字号等同论文正文，说明部分:宋体 10.5 磅，行距 16 磅，段前段后 0 磅。
+% \changes{v1.0}{2018/03/15}{符号说明不加页码}
+%    \begin{macrocode}
+\newenvironment{notation}{%
+    \if@swjtu@bachelor\clearpage\else\cleardoublepage\fi
+    \thispagestyle{swjtu@notation}
+    \ctexset{chapter/format = \centering\rmfamily\setfontsize{12\bp@}}
+    \swjtu@chapter{\swjtu@notationname}
+    \setfontsize{10.5\bp@}[16\bp@]
+    \setlength{\itemsep}{\z@}}{}
+%    \end{macrocode}
+% \end{environment}
+%
+% \subsection{正文}
+%
+% 正文字号12bp，研究生行距20bp，本科生行距22bp；其他命令的行距设置为对应的比例
+% \changes{v1.0}{2018/03/15}{优化图注、算法的行距}
+%    \begin{macrocode}
+\newdimen\bp@ \bp@=1bp
+\if@swjtu@bachelor
+  \renewcommand\normalsize{%
+     \@setfontsize\normalsize{12\bp@}{22\bp@}%
+     \abovedisplayskip 12\bp@ \@plus3\bp@ \@minus7\bp@
+     \abovedisplayshortskip \z@ \@plus3\bp@
+     \belowdisplayshortskip 6.5\bp@ \@plus3.5\bp@ \@minus3\bp@
+     \belowdisplayskip \abovedisplayskip
+     \let\@listi\@listI}
+  \normalsize
+  \renewcommand\small{%
+     \@setfontsize\small{10.5\bp@}{19.25\bp@}%
+     \abovedisplayskip 10.5\bp@ \@plus3\bp@ \@minus6\bp@
+     \abovedisplayshortskip \z@ \@plus3\bp@
+     \belowdisplayshortskip 6.5\bp@ \@plus3.5\bp@ \@minus3\bp@
+     \def\@listi{\leftmargin\leftmargini
+                 \topsep 9\bp@ \@plus3\bp@ \@minus5\bp@
+                 \parsep 4.5\bp@ \@plus2\bp@ \@minus\bp@
+                 \itemsep \parsep}%
+     \belowdisplayskip \abovedisplayskip
+  }
+  \renewcommand\footnotesize{%
+     \@setfontsize\footnotesize{9\bp@}{16.5\bp@}
+     \abovedisplayskip 9\bp@ \@plus2\bp@ \@minus5\bp@
+     \abovedisplayshortskip \z@ \@plus3\bp@
+     \belowdisplayshortskip 6\bp@ \@plus3\bp@ \@minus3\bp@
+     \def\@listi{\leftmargin\leftmargini
+                 \topsep 6\bp@ \@plus2\bp@ \@minus2\bp@
+                 \parsep 3\bp@ \@plus2\bp@ \@minus\bp@
+                 \itemsep \parsep}%
+     \belowdisplayskip \abovedisplayskip
+  }
+  \renewcommand\scriptsize{\@setfontsize\scriptsize{7.5\bp@}{13.75\bp@}}
+  \renewcommand\tiny{\@setfontsize\tiny{6.5\bp@}{11.92\bp@}}
+  \renewcommand\large{\@setfontsize\large{15\bp@}{27.5\bp@}}
+  \renewcommand\Large{\@setfontsize\Large{18\bp@}{33\bp@}}
+  \renewcommand\LARGE{\@setfontsize\LARGE{22\bp@}{40.33\bp@}}
+  \renewcommand\huge{\@setfontsize\huge{24\bp@}{44\bp@}}
+  \renewcommand\Huge{\@setfontsize\Huge{26\bp@}{47.67\bp@}}
+\else
+  \renewcommand\normalsize{%
+     \@setfontsize\normalsize{12\bp@}{20\bp@}%
+     \abovedisplayskip 12\bp@ \@plus3\bp@ \@minus7\bp@
+     \abovedisplayshortskip \z@ \@plus3\bp@
+     \belowdisplayshortskip 6.5\bp@ \@plus3.5\bp@ \@minus3\bp@
+     \belowdisplayskip \abovedisplayskip
+     \let\@listi\@listI}
+  \normalsize
+  \renewcommand\small{%
+     \@setfontsize\small{10.5\bp@}{17.5\bp@}%
+     \abovedisplayskip 10.5\bp@ \@plus3\bp@ \@minus6\bp@
+     \abovedisplayshortskip \z@ \@plus3\bp@
+     \belowdisplayshortskip 6.5\bp@ \@plus3.5\bp@ \@minus3\bp@
+     \def\@listi{\leftmargin\leftmargini
+                 \topsep 9\bp@ \@plus3\bp@ \@minus5\bp@
+                 \parsep 4.5\bp@ \@plus2\bp@ \@minus\bp@
+                 \itemsep \parsep}%
+     \belowdisplayskip \abovedisplayskip
+  }
+  \renewcommand\footnotesize{%
+     \@setfontsize\footnotesize{9\bp@}{15\bp@}
+     \abovedisplayskip 9\bp@ \@plus2\bp@ \@minus5\bp@
+     \abovedisplayshortskip \z@ \@plus3\bp@
+     \belowdisplayshortskip 6\bp@ \@plus3\bp@ \@minus3\bp@
+     \def\@listi{\leftmargin\leftmargini
+                 \topsep 6\bp@ \@plus2\bp@ \@minus2\bp@
+                 \parsep 3\bp@ \@plus2\bp@ \@minus\bp@
+                 \itemsep \parsep}%
+     \belowdisplayskip \abovedisplayskip
+  }
+  \renewcommand\scriptsize{\@setfontsize\scriptsize{7.5\bp@}{12.5\bp@}}
+  \renewcommand\tiny{\@setfontsize\tiny{6.5\bp@}{10.83\bp@}}
+  \renewcommand\large{\@setfontsize\large{15\bp@}{25\bp@}}
+  \renewcommand\Large{\@setfontsize\Large{18\bp@}{30\bp@}}
+  \renewcommand\LARGE{\@setfontsize\LARGE{22\bp@}{36.67\bp@}}
+  \renewcommand\huge{\@setfontsize\huge{24\bp@}{40\bp@}}
+  \renewcommand\Huge{\@setfontsize\Huge{26\bp@}{43.33\bp@}}
+\fi
+\setlength{\parindent}{2\ccwd}
+\setlength{\parskip}{\z@}
+%    \end{macrocode}
+%
+% \subsection{数学}
+%
+% 定义新的数学符号：
+% \changes{v1.0}{2018/03/15}{规定了 $\pi$ 等数学符号使用正体}
+%    \begin{macrocode}
+\RequirePackage{upgreek}
+\renewcommand\pi{\uppi}
+%    \end{macrocode}
+%
+% 小于等于号要使用倾斜的形式。
+% \changes{v1.0}{2018/03/15}{修正了 LaTeX 的小于等于号}
+%    \begin{macrocode}
+\RequirePackage{amssymb}
+\renewcommand\le{\leqslant}
+\renewcommand\leq{\leqslant}
+\renewcommand\ge{\geqslant}
+\renewcommand\geq{\geqslant}
+%    \end{macrocode}
+%
+% \LaTeX{} 在使用 |10pt| 选项时有 |DeclareMathSizes}{\@xpt}{\@xpt}{7}{5}}|，
+% 这里按照相同的比例设置 10.5 bp。
+%    \begin{macrocode}
+\DeclareMathSizes{10.5bp}{10.5bp}{7.35bp}{5.25bp}
+%    \end{macrocode}
+%
+% \subsection{图、表}
+%
+% 下面这组命令使浮动对象的缺省值稍微宽松一点，从而防止幅度对象占据过多的文本
+% 页面， 也可以防止在很大空白的浮动页上放置很小的图形。
+%
+% This macro holds the maximum proportion (as a decimal number) of a text page
+% or column that can be occupied by floats at the top. (Original: .7)
+%    \begin{macrocode}
+\renewcommand{\topfraction}{.85}
+%    \end{macrocode}
+%
+% This macro holds the maximum proportion (as a decimal number) of a text page
+% or column that can be occupied by floats at the bottom. (Original: .3)
+%    \begin{macrocode}
+\renewcommand{\bottomfraction}{.65}
+%    \end{macrocode}
+%
+% This macro holds the minimum proportion (as a decimal number) of a text page
+% or column that must be occupied by text. (Original: .2)
+%    \begin{macrocode}
+\renewcommand\textfraction{.15}
+%    \end{macrocode}
+%
+% This macro holds the minimum proportion (as a decimal number) of a page or
+% column that must be occupied by floating objects before a ‘float page’ is
+% produced. (Original: .5)
+%    \begin{macrocode}
+\renewcommand{\floatpagefraction}{.6}
+%    \end{macrocode}
+%
+% 用 \pkg{caption} 宏包设置图、表的格式
+% 注意计算 belowskip 必须用 \pkg{calc} 宏包修正。
+% \changes{v1.0}{2018/03/15}{图表的编号号、标题加粗}
+%    \begin{macrocode}
+\RequirePackage{caption}
+\RequirePackage{calc}
+\DeclareCaptionLabelSeparator{zhspace}{\hspace{\ccwd}}
+\captionsetup{
+    format = hang,
+    font = small,
+    labelsep = zhspace,
+}
+\if@swjtu@bachelor\else
+    \captionsetup{font+=bf}
+\fi
+\captionsetup[figure]{
+    position = bottom,
+    aboveskip = 6bp,
+    belowskip = {12bp-\intextsep},
+}
+\captionsetup[table]{
+    position = top,
+    aboveskip = 6bp,
+    belowskip = 6bp,
+}
+%    \end{macrocode}
+%
+% 使表的字号略小。
+% \changes{v1.0}{2018/03/15}{表格的字号略小}
+%    \begin{macrocode}
+% \BeforeBeginEnvironment{tabular}{\small}
+% \AtBeginEnvironment{longtable}{\small}
+%    \end{macrocode}
+% \begin{macro}{\note}
+% 新定义了 \cs{note} 来生成图标的附注。
+% 如果用 \cs{caption} 生成图标的附注会导致图标的序号有误；
+% 如果用 \cs{bicaption} 会导致表注无法置于表后，而且对齐方式不对。
+%    \begin{macrocode}
+\newcommand\note[1]{%
+    \captionsetup{position = bottom, font = small}
+    \caption*{\hangindent=2\ccwd\relax\swjtu@notesname\rmfamily#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{脚注}
+%
+% \changes{v1.0}{2018/03/15}{脚注用带圈序号，缩进两字}
+% 脚注用带圈的数字：
+%    \begin{macrocode}
+\renewcommand{\thefootnote}{\swjtu@textcircled{footnote}}
+%    \end{macrocode}
+%
+% 脚注线长为版心宽度的四分之一：
+% \changes{v1.0}{2018/03/15}{脚注线长度为版心宽度四分之一}
+%    \begin{macrocode}
+\renewcommand\footnoterule{%
+  \kern-3\p@
+  \hrule\@width.25\textwidth
+  \kern2.6\p@}
+%    \end{macrocode}
+%
+% 注文缩进两字：
+%    \begin{macrocode}
+\renewcommand\@makefntext[1]{%
+  \parindent 2\ccwd%
+  \noindent
+  \hb@xt@2\ccwd{\hss\@makefnmark}#1}
+%    \end{macrocode}
+%
+% \subsection{参考文献}
+% \changes{v1.0}{2018/03/15}{参考文献列表不出现“[S.l.]: [s.n.]”}
+%
+% 定义接口切换引用文献的标注法，可用 \cs{citestyle} 调用 \opt{super} 、
+% \opt{authoryear} 或 \opt{numbers}。
+% \changes{v1.0}{2018/03/15}{允许文献序号作为叙述文字的一部分}
+% \changes{v1.0.0}{2018/03/16}{修正著者-出版年式参考文献引用的顺序}
+%    \begin{macrocode}
+\if@swjtu@numerical
+  \PassOptionsToPackage{sort&compress}{natbib}
+\fi
+\RequirePackage{natbib}
+\newcommand\bibstyle@super{\bibpunct{[}{]}{,}{s}{,}{\textsuperscript{,}}}
+\newcommand\bibstyle@numbers{\bibpunct{[}{]}{,}{n}{,}{,}}
+\newcommand\bibstyle@authoryear{\bibpunct{(}{)}{;}{a}{,}{,}}
+%    \end{macrocode}
+% \begin{macro}{\swjtubibstyle}
+% 定义接口切换参考文献表的风格，可选 \opt{authoryear} 和 \opt{numerical}，
+% 这个仅用于\pkg{chapterbib}。
+%    \begin{macrocode}
+\def\tmp@numerical{numerical}
+\def\tmp@authoryear{authoryear}
+\newcommand\swjtubibstyle[1]{%
+  \def\tmp@gbt{#1}%
+  \ifx\tmp@gbt\tmp@numerical%
+    \bibliographystyle{swjtunumerical}%
+  \else%
+    \ifx\tmp@gbt\tmp@authoryear%
+      \bibliographystyle{swjtuauthoryear}%
+    \else%
+      \PackageError{swjtuthesis}{Unknown argument #1.}
+      {It should be `numerical' or `authoryear'.}
+    \fi%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% 处理宏包选项。
+%    \begin{macrocode}
+\if@swjtu@bachelor
+  \if@swjtu@super
+    \citestyle{super}
+  \else
+    \citestyle{numbers}
+  \fi
+  \bibliographystyle{swjtubachelor}%
+\else
+  \if@swjtu@numerical
+    \if@swjtu@super
+      \citestyle{super}
+    \else
+      \citestyle{numbers}
+    \fi
+    \bibliographystyle{swjtunumerical}%
+  \else
+    \citestyle{authoryear}
+    \bibliographystyle{swjtuauthoryear}%
+  \fi
+\fi
+%    \end{macrocode}
+%
+% 下面修改 \pkg{natbib} 的引用格式，主要是将页码写在上标位置。
+% Numerical 模式的 \cs{citet} 的页码：
+%    \begin{macrocode}
+\patchcmd\NAT@citexnum{%
+  \@ifnum{\NAT@ctype=\z@}{%
+    \if*#2*\else\NAT@cmt#2\fi
+  }{}%
+  \NAT@mbox{\NAT@@close}%
+}{%
+  \NAT@mbox{\NAT@@close}%
+  \@ifnum{\NAT@ctype=\z@}{%
+    \if*#2*\else\textsuperscript{#2}\fi
+  }{}%
+}{}{}
+%    \end{macrocode}
+%
+% Numerical 模式的 \cs{citep} 的页码：
+%    \begin{macrocode}
+\renewcommand\NAT@citesuper[3]{\ifNAT@swa
+\if*#2*\else#2\NAT@spacechar\fi
+\unskip\kern\p@\textsuperscript{\NAT@@open#1\NAT@@close\if*#3*\else#3\fi}%
+   \else #1\fi\endgroup}
+\renewcommand\NAT@citenum%
+    [3]{\ifNAT@swa\NAT@@open\if*#2*\else#2\NAT@spacechar\fi
+        #1\NAT@@close\if*#3*\else\textsuperscript{#3}\fi\else#1\fi\endgroup}
+%    \end{macrocode}
+%
+% Author-year 模式的 \cs{citet} 的页码：
+%    \begin{macrocode}
+\patchcmd{\NAT@citex}{%
+  \if*#2*\else\NAT@cmt#2\fi
+  \if\relax\NAT@date\relax\else\NAT@@close\fi
+}{%
+  \if\relax\NAT@date\relax\else\NAT@@close\fi
+  \if*#2*\else\textsuperscript{#2}\fi
+}{}{}
+%    \end{macrocode}
+%
+% Author-year 模式的 \cs{citep} 的页码：
+%    \begin{macrocode}
+\renewcommand\NAT@cite%
+    [3]{\ifNAT@swa\NAT@@open\if*#2*\else#2\NAT@spacechar\fi
+        #1\NAT@@close\if*#3*\else\textsuperscript{#3}\fi\else#1\fi\endgroup}
+%    \end{macrocode}
+%
+% 参考文献列表宋体10.5磅，行距20磅，续行缩进两字
+%    \begin{macrocode}
+\renewcommand\bibfont{\setfontsize{10.5bp}[20bp]}
+\setlength{\bibsep}{\z@}
+\setlength{\bibhang}{2\ccwd}
+\renewcommand\@biblabel[1]{[#1]\hfill}
+%    \end{macrocode}
+%
+% 将 URL 设置为保持原样，并增加可断行的位置。
+%    \begin{macrocode}
+\urlstyle{same}
+\g@addto@macro\UrlBreaks{%
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+  \do\u\do\v\do\w\do\x\do\y\do\z%
+  \do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J%
+  \do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T%
+  \do\U\do\V\do\W\do\X\do\Y\do\Z%
+  \do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0%
+}
+%    \end{macrocode}
+%
+% \begin{macro}{\bibsection}
+% 为了将参考文献加入目录和 pdf 书签，重新定义了 \pkg{natbib} 的 \env{bibsection}
+%    \begin{macrocode}
+\renewcommand\bibsection{%
+    \@mainmatterfalse
+    \chapter{\bibname}%
+    \@mainmattertrue
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{附录}
+% \begin{environment}{acknowledgements}
+% 定义了一个满足要求的致谢环境：
+%    \begin{macrocode}
+\newenvironment{acknowledgements}{%
+  \if@swjtu@bachelor
+    \swjtu@chapter{\swjtu@acknowledgementsname}%
+  \else
+    \chapter{\swjtu@acknowledgementsname}%
+  \fi
+}{}
+%    \end{macrocode}
+% \end{environment}
+% \begin{environment}{publications}
+% 发表成果环境：
+%    \begin{macrocode}
+\newenvironment{publications}{\chapter{\swjtu@publicationsname}}{}
+%</class>
+%    \end{macrocode}
+% \end{environment}
+%
+%
+%
+% \StopEventually{}
+%
+% \section{BibTeX style implementation}
+%
+% \subsection{Fields and entry strings}
+%
+%    \begin{macrocode}
+%<*authoryear|numerical|bachelor>
+ENTRY
+  { address
+    author
+    booktitle
+    date
+    doi
+    edition
+    editor
+    institution
+    journal
+    key
+    language
+    mark
+    medium
+    number
+    organization
+    pages
+    publisher
+    school
+    series
+    title
+    translator
+    url
+    urldate
+    volume
+    year
+  }
+  { entry.lang }
+%    \end{macrocode}
+%
+% These string entry variables are used to form the citation label.
+% In a storage pinch, sort.label can be easily computed on the fly.
+%
+%    \begin{macrocode}
+  { label extra.label sort.label short.list entry.mark }
+
+%    \end{macrocode}
+%
+% \subsection{Entry functions}
+% Each entry function starts by calling output.bibitem, to write the
+% |\bibitem| and its arguments to the .BBL file.  Then the various fields
+% are formatted and printed by output or output.check.  Those functions
+% handle the writing of separators (commas, periods, |\newblock|'s),
+% taking care not to do so when they are passed a null string.
+% Finally, fin.entry is called to add the final period and finish the
+% entry.
+%
+% A bibliographic reference is formatted into a number of `blocks':
+% in the open format, a block begins on a new line and subsequent
+% lines of the block are indented.  A block may contain more than
+% one sentence (well, not a grammatical sentence, but something to
+% be ended with a sentence ending period).  The entry functions should
+% call new.block whenever a block other than the first is about to be
+% started.  They should call new.sentence whenever a new sentence is
+% to be started.  The output functions will ensure that if two
+% new.sentence's occur without any non-null string being output between
+% them then there won't be two periods output.  Similarly for two
+% successive new.block's.
+%
+% The output routines don't write their argument immediately.
+% Instead, by convention, that argument is saved on the stack to be
+% output next time (when we'll know what separator needs to come
+% after it).  Meanwhile, the output routine has to pop the pending
+% output off the stack, append any needed separator, and write it.
+%
+% To tell which separator is needed, we maintain an output.state.
+% It will be one of these values:
+%       before.all              just after the |\bibitem|
+%       mid.sentence            in the middle of a sentence: comma needed
+%                                       if more sentence is output
+%       after.sentence          just after a sentence: period needed
+%       after.block             just after a block (and sentence):
+%                                       period and |\newblock| needed.
+% Note: These styles don't use after.sentence
+%
+% VAR: output.state : INTEGER           -- state variable for output
+%
+% The output.nonnull function saves its argument (assumed to be nonnull)
+% on the stack, and writes the old saved value followed by any needed
+% separator.  The ordering of the tests is decreasing frequency of
+% occurrence.
+%
+% 由于专著中的析出文献需要用到很特殊的“//”，所以我又加了一个 after.slash。
+% 其他需要在特定符号后面输出，所以写了一个 output.after。
+%
+% \begin{pseudocode}
+% output.nonnull(s) ==
+%  BEGIN
+%       s := argument on stack
+%       if output.state = mid.sentence then
+%           write$(pop() * ", ")
+%                 -- "pop" isn't a function: just use stack top
+%       else
+%           if output.state = after.block then
+%               write$(add.period$(pop()))
+%               newline$
+%               write$("\newblock ")
+%           else
+%               if output.state = before.all then
+%                   write$(pop())
+%               else        -- output.state should be after.sentence
+%                   write$(add.period$(pop()) * " ")
+%               fi
+%           fi
+%           output.state := mid.sentence
+%       fi
+%       push s on stack
+%  END
+% \end{pseudocode}
+%
+% The output function calls output.nonnull if its argument is non-empty;
+% its argument may be a missing field (thus, not necessarily a string)
+%
+% \begin{pseudocode}
+% output(s) ==
+%  BEGIN
+%       if not empty$(s) then output.nonnull(s)
+%       fi
+%  END
+% \end{pseudocode}
+%
+% The output.check function is the same as the output function except that, if
+% necessary, output.check warns the user that the t field shouldn't be empty
+% (this is because it probably won't be a good reference without the field;
+% the entry functions try to make the formatting look reasonable even when
+% such fields are empty).
+%
+% \begin{pseudocode}
+% output.check(s,t) ==
+%  BEGIN
+%       if empty$(s) then
+%           warning$("empty " * t * " in " * cite$)
+%       else output.nonnull(s)
+%       fi
+%  END
+% \end{pseudocode}
+%
+% The output.bibitem function writes the |\bibitem| for the current entry
+% (the label should already have been set up), and sets up the separator
+% state for the output functions.  And, it leaves a string on the stack
+% as per the output convention.
+%
+% \begin{pseudocode}
+% output.bibitem ==
+%  BEGIN
+%       newline$
+%       write$("\bibitem[")     % for alphabetic labels,
+%       write$(label)           % these three lines
+%       write$("]{")            % are used
+%       write$("\bibitem{")             % this line for numeric labels
+%       write$(cite$)
+%       write$("}")
+%       push "" on stack
+%       output.state := before.all
+%  END
+% \end{pseudocode}
+%
+% The fin.entry function finishes off an entry by adding a period to the
+% string remaining on the stack.  If the state is still before.all
+% then nothing was produced for this entry, so the result will look bad,
+% but the user deserves it. (We don't omit the whole entry because the
+% entry was cited, and a bibitem is needed to define the citation label.)
+%
+% \begin{pseudocode}
+% fin.entry ==
+%  BEGIN
+%       write$(add.period$(pop()))
+%       newline$
+%  END
+% \end{pseudocode}
+%
+% The new.block function prepares for a new block to be output, and
+% new.sentence prepares for a new sentence.
+%
+% \begin{pseudocode}
+% new.block ==
+%  BEGIN
+%       if output.state <> before.all then
+%           output.state := after.block
+%       fi
+%  END
+% \end{pseudocode}
+%
+% \begin{pseudocode}
+% new.sentence ==
+%  BEGIN
+%       if output.state <> after.block then
+%           if output.state <> before.all then
+%               output.state :=  after.sentence
+%           fi
+%       fi
+%  END
+% \end{pseudocode}
+%
+%    \begin{macrocode}
+INTEGERS { output.state before.all mid.sentence after.sentence after.block after.slash }
+
+INTEGERS { lang.zh lang.ja lang.en lang.ru lang.other }
+
+INTEGERS { charptr stringlength }
+
+FUNCTION {init.state.consts}
+{ #0 'before.all :=
+  #1 'mid.sentence :=
+  #2 'after.sentence :=
+  #3 'after.block :=
+  #4 'after.slash :=
+  #3 'lang.zh :=
+  #4 'lang.ja :=
+  #1 'lang.en :=
+  #2 'lang.ru :=
+  #0 'lang.other :=
+}
+
+%    \end{macrocode}
+%
+% the variables s and t are temporary string holders
+%
+%    \begin{macrocode}
+STRINGS { s t }
+
+FUNCTION {debug}
+{ 's :=
+  duplicate$
+  "DEBUG: " s * " -> `" *
+  swap$ * "'" *
+  top$
+}
+
+FUNCTION {debug.int}
+{ 's :=
+  duplicate$ int.to.str$
+  "DEBUG: " s * " == " *
+  swap$ *
+  top$
+}
+
+FUNCTION {punct.colon}
+{ ": "
+}
+
+FUNCTION {punct.slash}
+{ "//\allowbreak{}"
+}
+
+FUNCTION {punct.space}
+{ " "
+}
+
+FUNCTION {output.nonnull}
+{ 's :=
+  output.state mid.sentence =
+    { ", " * write$ }
+    { output.state after.block =
+        { add.period$ write$
+          newline$
+          "\newblock " write$
+        }
+        { output.state before.all =
+            'write$
+            { output.state after.slash =
+                { punct.slash * write$ }
+                { add.period$ " " * write$ }
+              if$
+            }
+          if$
+        }
+      if$
+      mid.sentence 'output.state :=
+    }
+  if$
+  s
+}
+
+FUNCTION {output}
+{ duplicate$ empty$
+    'pop$
+    'output.nonnull
+  if$
+}
+
+FUNCTION {output.after}
+{ 't :=
+  duplicate$ empty$
+    'pop$
+    { 's :=
+      output.state mid.sentence =
+        { t * write$ }
+        { output.state after.block =
+            { add.period$ write$
+              newline$
+              "\newblock " write$
+            }
+            { output.state before.all =
+                'write$
+                { output.state after.slash =
+                    { punct.slash * write$ }
+                    { add.period$ " " * write$ }
+                  if$
+                }
+              if$
+            }
+          if$
+          mid.sentence 'output.state :=
+        }
+      if$
+      s
+    }
+  if$
+}
+
+FUNCTION {output.check}
+{ 't :=
+  duplicate$ empty$
+    { pop$ "empty " t * " in " * cite$ * warning$ }
+    'output.nonnull
+  if$
+}
+
+%    \end{macrocode}
+%
+% This function finishes all entries.
+%
+%    \begin{macrocode}
+FUNCTION {fin.entry}
+{ add.period$
+  write$
+  newline$
+}
+
+FUNCTION {new.block}
+{ output.state before.all =
+    'skip$
+    { output.state after.slash =
+        'skip$
+        { after.block 'output.state := }
+      if$
+    }
+  if$
+}
+
+FUNCTION {new.sentence}
+{ output.state after.block =
+    'skip$
+    { output.state before.all =
+        'skip$
+        { output.state after.slash =
+            'skip$
+            { after.sentence 'output.state := }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+FUNCTION {new.slash}
+{ output.state before.all =
+    'skip$
+    { after.slash 'output.state := }
+  if$
+}
+
+%    \end{macrocode}
+%
+% These three functions pop one or two (integer) arguments from the stack
+% and push a single one, either 0 or 1.
+% The |'skip$| in the `and' and `or' functions are used because
+% the corresponding |if$| would be idempotent
+%
+%    \begin{macrocode}
+FUNCTION {not}
+{   { #0 }
+    { #1 }
+  if$
+}
+
+FUNCTION {and}
+{   'skip$
+    { pop$ #0 }
+  if$
+}
+
+FUNCTION {or}
+{   { pop$ #1 }
+    'skip$
+  if$
+}
+
+%    \end{macrocode}
+%
+% Sometimes we begin a new block only if the block will be big enough.  The
+% new.block.checka function issues a new.block if its argument is nonempty;
+% new.block.checkb does the same if either of its TWO arguments is nonempty.
+%
+%    \begin{macrocode}
+FUNCTION {new.block.checka}
+{ empty$
+    'skip$
+    'new.block
+  if$
+}
+
+FUNCTION {new.block.checkb}
+{ empty$
+  swap$ empty$
+  and
+    'skip$
+    'new.block
+  if$
+}
+
+%    \end{macrocode}
+%
+% The new.sentence.check functions are analogous.
+%
+%    \begin{macrocode}
+FUNCTION {new.sentence.checka}
+{ empty$
+    'skip$
+    'new.sentence
+  if$
+}
+
+FUNCTION {new.sentence.checkb}
+{ empty$
+  swap$ empty$
+  and
+    'skip$
+    'new.sentence
+  if$
+}
+
+%    \end{macrocode}
+%
+% \subsection{Formatting chunks}
+% Here are some functions for formatting chunks of an entry.
+% By convention they either produce a string that can be followed by
+% a comma or period (using |add.period$|, so it is OK to end in a period),
+% or they produce the null string.
+%
+% A useful utility is the field.or.null function, which checks if the
+% argument is the result of pushing a `missing' field (one for which no
+% assignment was made when the current entry was read in from the database)
+% or the result of pushing a string having no non-white-space characters.
+% It returns the null string if so, otherwise it returns the field string.
+% Its main (but not only) purpose is to guarantee that what's left on the
+% stack is a string rather than a missing field.
+%
+% \begin{pseudocode}
+% field.or.null(s) ==
+%  BEGIN
+%       if empty$(s) then return ""
+%       else return s
+%  END
+% \end{pseudocode}
+%
+% Another helper function is emphasize, which returns the argument emphazised,
+% if that is non-empty, otherwise it returns the null string.  Italic
+% corrections aren't used, so this function should be used when punctation
+% will follow the result.
+%
+% \begin{pseudocode}
+% emphasize(s) ==
+%  BEGIN
+%       if empty$(s) then return ""
+%       else return "{\em " * s * "}"
+% \begin{pseudocode}
+%
+% The format.names function formats the argument (which should be in
+% BibTeX name format) into "First Von Last, Junior", separated by commas
+% and with an "and" before the last (but ending with "et~al." if the last
+% of multiple authors is "others").  This function's argument should always
+% contain at least one name.
+%
+% VAR: nameptr, namesleft, numnames: INTEGER
+% pseudoVAR: nameresult: STRING         (it's what's accumulated on the stack)
+%
+% \begin{pseudocode}
+% format.names(s) ==
+%  BEGIN
+%       nameptr := 1
+%       numnames := num.names$(s)
+%       namesleft := numnames
+%       while namesleft > 0
+%         do
+%                               % for full names:
+%           t := format.name$(s, nameptr, "{ff~}{vv~}{ll}{, jj}")
+%                               % for abbreviated first names:
+%           t := format.name$(s, nameptr, "{f.~}{vv~}{ll}{, jj}")
+%           if nameptr > 1 then
+%               if namesleft > 1 then nameresult := nameresult * ", " * t
+%               else if numnames > 2
+%                      then nameresult := nameresult * ","
+%                    fi
+%                    if t = "others"
+%                      then nameresult := nameresult * " et~al."
+%                      else nameresult := nameresult * " and " * t
+%                    fi
+%               fi
+%           else nameresult := t
+%           fi
+%           nameptr := nameptr + 1
+%           namesleft := namesleft - 1
+%         od
+%       return nameresult
+%  END
+% \end{pseudocode}
+%
+% The format.authors function returns the result of format.names(author)
+% if the author is present, or else it returns the null string
+%
+% \begin{pseudocode}
+% format.authors ==
+%  BEGIN
+%       if empty$(author) then return ""
+%       else return format.names(author)
+%       fi
+%  END
+% \end{pseudocode}
+%
+% Format.editors is like format.authors, but it uses the editor field,
+% and appends ", editor" or ", editors"
+%
+% \begin{pseudocode}
+% format.editors ==
+%  BEGIN
+%       if empty$(editor) then return ""
+%       else
+%           if num.names$(editor) > 1 then
+%               return format.names(editor) * ", editors"
+%           else
+%               return format.names(editor) * ", editor"
+%           fi
+%       fi
+%  END
+% \end{pseudocode}
+%
+% Other formatting functions are similar, so no "comment version" will be
+% given for them.
+%
+% The `pop\$' in this function gets rid of the duplicate `empty' value and
+% the `skip\$' returns the duplicate field value
+%
+%    \begin{macrocode}
+FUNCTION {field.or.null}
+{ duplicate$ empty$
+    { pop$ "" }
+    'skip$
+  if$
+}
+
+FUNCTION {emphasize}
+{ duplicate$ empty$
+    { pop$ "" }
+    { "\emph{" swap$ * "}" * }
+  if$
+}
+
+INTEGERS { ascii }
+
+FUNCTION {get.char.lang}
+{ chr.to.int$ 'ascii :=
+  ascii #64 > ascii #91 < and ascii #96 > ascii #123 < and or
+    { lang.en }
+    { ascii #227 > ascii #234 < and
+        { lang.zh }
+        { ascii #227 =
+            { lang.ja }
+            { ascii #207 > ascii #212 < and
+                { lang.ru }
+                { lang.en }
+              if$
+            }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+INTEGERS { char.lang tmp.lang }
+
+STRINGS { tmp.str }
+
+FUNCTION {get.str.lang}
+{ 'tmp.str :=
+  lang.other 'tmp.lang :=
+  tmp.str empty$
+    { "Empty string!" warning$ }
+    { #1 'charptr :=
+      tmp.str text.length$ #1 + 'stringlength :=
+        { charptr stringlength < }
+        { tmp.str charptr #1 substring$ get.char.lang 'char.lang :=
+          char.lang tmp.lang >
+            { char.lang 'tmp.lang := }
+            'skip$
+          if$
+
+          char.lang lang.zh = char.lang lang.ja = or
+            { charptr #3 + 'charptr := }
+            { char.lang lang.ru =
+                { charptr #2 + 'charptr := }
+                { charptr #1 + 'charptr := }
+              if$
+            }
+          if$
+        }
+      while$
+    }
+  if$
+  tmp.lang
+}
+
+FUNCTION {is.in.chinese}
+{ entry.lang lang.zh =
+}
+
+%    \end{macrocode}
+%
+% SWJTU requires multiple language support of "et al".
+%
+%    \begin{macrocode}
+FUNCTION {format.et.al}
+{ is.in.chinese
+    { "等"}
+    { lang.ja entry.lang =
+        { "他"}
+        { lang.ru entry.lang =
+            { "идр" }
+            { "et~al." }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+FUNCTION {format.anonymous}
+{ is.in.chinese
+    { "佚名" }
+    { "Anon" }
+  if$
+}
+
+INTEGERS { nameptr namesleft numnames name.lang }
+
+%    \end{macrocode}
+%
+% SWJTU requires no upper case of author names for undergraduates.
+%
+% \changes{v1.0.0}{2018/03/16}{修正参考文献姓名的“others”}
+%
+%    \begin{macrocode}
+FUNCTION {format.names}
+{ 's :=
+  #1 'nameptr :=
+  s num.names$ 'numnames :=
+  numnames 'namesleft :=
+    { namesleft #0 > }
+    { s nameptr "{vv~}{ll}{, jj}{, ff}" format.name$ 't :=
+      nameptr #4 =
+        { format.et.al
+          #1 'namesleft :=
+        }
+        { t "others" =
+            { format.et.al }
+            { t get.str.lang 'name.lang :=
+              name.lang lang.en =
+                { t #1 "{vv~}{ll}{ f{~}}" format.name$
+%<*!bachelor>
+                "u" change.case$
+%</!bachelor>
+                  t #1 "{, jj}" format.name$ *
+                }
+                { t #1 "{ll}{ff}" format.name$ }
+              if$
+            }
+          if$
+        }
+      if$
+      nameptr #1 >
+        { ", " swap$ * * }
+        'skip$
+      if$
+      nameptr #1 + 'nameptr :=
+      namesleft #1 - 'namesleft :=
+    }
+  while$
+}
+
+FUNCTION {format.key}
+{ empty$
+    { key field.or.null }
+    { "" }
+  if$
+}
+
+FUNCTION {format.authors}
+{ author empty$
+%<*authoryear>
+    { format.anonymous }
+%</authoryear>
+%<*numerical>
+    { "" }
+%</numerical>
+    { author format.names }
+  if$
+}
+
+FUNCTION {format.editors}
+{ editor empty$
+    { "" }
+    { editor format.names }
+  if$
+}
+
+FUNCTION {format.translators}
+{ translator empty$
+    { "" }
+    { translator format.names
+      is.in.chinese
+        { translator num.names$ #3 >
+            { "译" * }
+            { ", 译" * }
+          if$
+        }
+        'skip$
+      if$
+    }
+  if$
+}
+
+FUNCTION {format.url}
+{ url empty$
+    { "" }
+    { new.block "\url{" url * "}" * }
+  if$
+}
+
+%    \end{macrocode}
+%
+% 需要检测 DOI 是否已经包含在 URL 中。
+%
+%    \begin{macrocode}
+FUNCTION {is.doi.in.url}
+{ url empty$
+    { #0 }
+    { doi text.length$ 'stringlength :=
+      url text.length$ 'charptr :=
+        { url charptr stringlength substring$ doi = not
+          charptr #0 >
+          and
+        }
+        { charptr #1 - 'charptr := }
+      while$
+      charptr
+    }
+  if$
+}
+
+FUNCTION {format.doi}
+{ doi empty$
+    { "" }
+    { is.doi.in.url
+        { "" }
+        { new.block "\doi{" doi * "}" * }
+      if$
+    }
+  if$
+}
+
+%    \end{macrocode}
+%
+% The format.title function is used for non-book-like titles.
+% For most styles we convert to lowercase (except for the very first letter,
+% and except for the first one after a colon (followed by whitespace)),
+% and hope the user has brace-surrounded words that need to stay capitilized;
+% for some styles, however, we leave it as it is in the database.
+%
+%    \begin{macrocode}
+FUNCTION {format.title}
+{ title empty$
+    { "" }
+    { title "t" change.case$ }
+  if$
+}
+
+FUNCTION {set.mark}
+{ entry.mark empty$ not
+    'pop$
+    { mark empty$ not
+        { pop$ mark 'entry.mark := }
+        { 'entry.mark := }
+      if$
+      medium empty$ not
+        { entry.mark "/" * medium * 'entry.mark := }
+        { url empty$ not
+            { entry.mark "/OL" * 'entry.mark := }
+            'skip$
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+%    \end{macrocode}
+%
+% SWJTU requires no mark for undergraduates.
+%
+%    \begin{macrocode}
+FUNCTION {format.mark}
+%<*bachelor>
+{ "" }
+%</bachelor>
+%<*!bachelor>
+{ "\allowbreak[" entry.mark * "]" * }
+%</!bachelor>
+
+FUNCTION {format.full.names}
+{'s :=
+  #1 'nameptr :=
+  s num.names$ 'numnames :=
+  numnames 'namesleft :=
+    { namesleft #0 > }
+    { s nameptr "{vv~}{ll}{, jj}{, ff}" format.name$ 't :=
+      t get.str.lang 'name.lang :=
+      name.lang lang.en =
+        { t #1 "{vv~}{ll}" format.name$ 't := }
+        { t #1 "{ll}{ff}" format.name$ 't := }
+      if$
+      nameptr #1 >
+        {
+          namesleft #1 >
+            { ", " * t * }
+            {
+              numnames #2 >
+                { "," * }
+                'skip$
+              if$
+              t "others" =
+                { " et~al." * }
+                { " and " * t * }
+              if$
+            }
+          if$
+        }
+        't
+      if$
+      nameptr #1 + 'nameptr :=
+      namesleft #1 - 'namesleft :=
+    }
+  while$
+}
+
+FUNCTION {author.editor.full}
+{ author empty$
+    { editor empty$
+        { "" }
+        { editor format.full.names }
+      if$
+    }
+    { author format.full.names }
+  if$
+}
+
+FUNCTION {author.full}
+{ author empty$
+    { "" }
+    { author format.full.names }
+  if$
+}
+
+FUNCTION {editor.full}
+{ editor empty$
+    { "" }
+    { editor format.full.names }
+  if$
+}
+
+FUNCTION {make.full.names}
+{ type$ "book" =
+  type$ "inbook" =
+  or
+    'author.editor.full
+    { type$ "collection" =
+      type$ "proceedings" =
+      or
+        'editor.full
+        'author.full
+      if$
+    }
+  if$
+}
+
+FUNCTION {output.bibitem}
+{ newline$
+  "\bibitem[" write$
+  label write$
+  ")" make.full.names duplicate$ short.list =
+     { pop$ }
+     { * }
+   if$
+  "]{" * write$
+  cite$ write$
+  "}" write$
+  newline$
+  ""
+  before.all 'output.state :=
+}
+
+%    \end{macrocode}
+%
+% By default, BibTeX sets the global integer variable |global.max$| to the BibTeX
+% constant |glob_str_size|, the maximum length of a global string variable.
+% Analogously, BibTeX sets the global integer variable |entry.max$| to
+% |ent_str_size|, the maximum length of an entry string variable.
+% The style designer may change these if necessary (but this is unlikely)
+%
+% The n.dashify function makes each single |`-'| in a string a double |`--'|
+% if it's not already
+%
+% \begin{pseudocode}
+% pseudoVAR: pageresult: STRING         (it's what's accumulated on the stack)
+%
+% n.dashify(s) ==
+%  BEGIN
+%       t := s
+%       pageresult := ""
+%       while (not empty$(t))
+%         do
+%           if (first character of t = "-")
+%             then
+%               if (next character isn't)
+%                 then
+%                   pageresult := pageresult * "--"
+%                   t := t with the "-" removed
+%                 else
+%                   while (first character of t = "-")
+%                     do
+%                       pageresult := pageresult * "-"
+%                       t := t with the "-" removed
+%                     od
+%               fi
+%             else
+%               pageresult := pageresult * the first character
+%               t := t with the first character removed
+%           fi
+%         od
+%       return pageresult
+%  END
+% \end{pseudocode}
+%
+%    \begin{macrocode}
+FUNCTION {n.dashify}
+{ 't :=
+  ""
+    { t empty$ not }
+    { t #1 #1 substring$ "-" =
+        { t #1 #2 substring$ "--" = not
+            { "--" *
+              t #2 global.max$ substring$ 't :=
+            }
+            {   { t #1 #1 substring$ "-" = }
+                { "-" *
+                  t #2 global.max$ substring$ 't :=
+                }
+              while$
+            }
+          if$
+        }
+        { t #1 #1 substring$ *
+          t #2 global.max$ substring$ 't :=
+        }
+      if$
+    }
+  while$
+}
+
+%    \end{macrocode}
+%
+% The format.date function is for the month and year, but we give a warning if
+% there's an empty year but the month is there, and we return the empty string
+% if they're both empty.
+%
+% Newspaer 和 paptent 要显示完整的日期，同时不再显示修改日期。
+% 但是在 author-year 模式下，需要单独设置 format.year。
+%
+%    \begin{macrocode}
+FUNCTION {extract.before.dash}
+{ duplicate$ empty$
+    { pop$ "" }
+    { 's :=
+      #1 'charptr :=
+      s text.length$ #1 + 'stringlength :=
+        { charptr stringlength <
+          s charptr #1 substring$ "-" = not
+          and
+        }
+        { charptr #1 + 'charptr := }
+      while$
+      s #1 charptr #1 - substring$
+    }
+  if$
+}
+
+FUNCTION {extract.after.dash}
+{ duplicate$ empty$
+    { pop$ "" }
+    { 's :=
+      #1 'charptr :=
+      s text.length$ #1 + 'stringlength :=
+        { charptr stringlength <
+          s charptr #1 substring$ "-" = not
+          and
+        }
+        { charptr #1 + 'charptr := }
+      while$
+        { charptr stringlength <
+          s charptr #1 substring$ "-" =
+          and
+        }
+        { charptr #1 + 'charptr := }
+      while$
+      s charptr global.max$ substring$
+    }
+  if$
+}
+
+FUNCTION {contains.dash}
+{ duplicate$ empty$
+    { pop$ #0 }
+    { 's :=
+        { s empty$ not
+          s #1 #1 substring$ "-" = not
+          and
+        }
+        { s #2 global.max$ substring$ 's := }
+      while$
+      s empty$ not
+    }
+  if$
+}
+
+FUNCTION {format.year}
+{ year empty$ not
+    { year extract.before.dash }
+    { date empty$ not
+        { date extract.before.dash }
+        { "empty year in " cite$ * warning$
+          ""
+        }
+      if$
+    }
+  if$
+  extra.label *
+}
+
+FUNCTION {format.date}
+{ type$ "patent" = type$ "newspaper" = or
+  date empty$ not and
+    { date }
+    { year }
+  if$
+}
+
+FUNCTION {format.editdate}
+{ date empty$ not
+  type$ "newspaper" = not and
+  url empty$ not doi empty$ not or
+  and
+    { "\allowbreak(" date * ")" * }
+    { "" }
+  if$
+}
+
+%    \end{macrocode}
+%
+% 《著录规则》中的“引用日期”都是与 URL 同时出现的，所以其实为 urldate，这个虽然
+% 不是 \BibTeX{} 标准的域，但是实际中很常见。
+%
+%    \begin{macrocode}
+FUNCTION {format.urldate}
+{ urldate empty$ not
+    { "\allowbreak[" urldate * "]" * }
+    { "" }
+  if$
+}
+
+%    \end{macrocode}
+%
+% The format.btitle is for formatting the title field when it is a book-like
+% entry---the style used here keeps it in uppers-and-lowers and emphasizes it.
+%
+%    \begin{macrocode}
+FUNCTION {format.btitle}
+{ title emphasize
+}
+
+%    \end{macrocode}
+%
+% For several functions we'll need to connect two strings with a
+% tie (~) if the second one isn't very long (fewer than 3 characters).
+% The tie.or.space.connect function does that.  It concatenates the two
+% strings on top of the stack, along with either a tie or space between
+% them, and puts this concatenation back onto the stack:
+%
+% \begin{pseudocode}
+% tie.or.space.connect(str1,str2) ==
+%    BEGIN
+%       if text.length$(str2) < 3
+%         then return the concatenation of str1, "~", and str2
+%         else return the concatenation of str1, " ", and str2
+%    END
+% \end{pseudocode}
+%
+%    \begin{macrocode}
+FUNCTION {tie.or.space.connect}
+{ duplicate$ text.length$ #3 <
+    { "~" }
+    { " " }
+  if$
+  swap$ * *
+}
+
+%    \end{macrocode}
+%
+% The either.or.check function complains if both fields or an either-or pair
+% are nonempty.
+%
+% \begin{pseudocode}
+% either.or.check(t,s) ==
+%  BEGIN
+%       if empty$(s) then
+%           warning$(can't use both " * t * " fields in " * cite$)
+%       fi
+%  END
+% \end{pseudocode}
+%
+%    \begin{macrocode}
+FUNCTION {either.or.check}
+{ empty$
+    'pop$
+    { "can't use both " swap$ * " fields in " * cite$ * warning$ }
+  if$
+}
+
+%    \end{macrocode}
+%
+% The format.bvolume function is for formatting the volume and perhaps
+% series name of a multivolume work.  If both a volume and a series field
+% are there, we assume the series field is the title of the whole multivolume
+% work (the title field should be the title of the thing being referred to),
+% and we add an "of <series>".  This function is called in mid-sentence.
+%
+% The format.number.series function is for formatting the series name
+% and perhaps number of a work in a series.  This function is similar to
+% format.bvolume, although for this one the series must exist (and the
+% volume must not exist).  If the number field is empty we output either
+% the series field unchanged if it exists or else the null string.
+% If both the number and series fields are there we assume the series field
+% gives the name of the whole series (the title field should be the title
+% of the work being one referred to), and we add an "in <series>".
+% We capitilize Number when this function is used at the beginning of a block.
+%
+%    \begin{macrocode}
+FUNCTION {is.digit}
+{ duplicate$ empty$
+    { pop$ #0 }
+    { chr.to.int$
+      duplicate$ "0" chr.to.int$ <
+      { pop$ #0 }
+      { "9" chr.to.int$ >
+          { #0 }
+          { #1 }
+        if$
+      }
+    if$
+    }
+  if$
+}
+
+FUNCTION {is.number}
+{ 's :=
+  s empty$
+    { #0 }
+    { s text.length$ 'charptr :=
+        { charptr #0 >
+          s charptr #1 substring$ is.digit
+          and
+        }
+        { charptr #1 - 'charptr := }
+      while$
+      charptr not
+    }
+  if$
+}
+
+FUNCTION {format.volume}
+{ volume empty$
+    { "" }
+    { volume is.number
+        { is.in.chinese
+            { "第" volume * "卷" * }
+            { "volume" volume tie.or.space.connect }
+          if$
+        }
+        { volume }
+      if$
+    }
+  if$
+}
+
+FUNCTION {format.number}
+{ number empty$
+    { "" }
+    { number is.number
+        { is.in.chinese
+            { "第" number * "册" * }
+            { "number" number tie.or.space.connect }
+          if$
+        }
+        { number }
+      if$
+    }
+  if$
+}
+
+FUNCTION {format.volume.number}
+{ volume empty$ not
+    { format.volume }
+    { format.number }
+  if$
+}
+
+FUNCTION {format.series.vol.num.title}
+{ format.volume.number 's :=
+  series empty$ not
+    { series ": " *
+      s empty$ not
+        { s * "\quad " * }
+        'skip$
+      if$
+      title *
+    }
+    { title
+      s empty$ not
+        { ": " * s * }
+        'skip$
+      if$
+    }
+  if$
+  "t" change.case$
+}
+
+FUNCTION {format.series.vol.num.booktitle}
+{ format.volume.number 's :=
+  series empty$ not
+    { series ": " *
+      s empty$ not
+        { s * "\quad " * }
+        'skip$
+      if$
+      booktitle *
+    }
+    { booktitle
+      s empty$ not
+        { ": " * s * }
+        'skip$
+      if$
+    }
+  if$
+}
+
+%    \end{macrocode}
+%
+% The format.edition function appends " edition" to the edition, if present.
+% We lowercase the edition (it should be something like "Third"), because
+% this doesn't start a sentence.
+%
+%    \begin{macrocode}
+FUNCTION {num.to.ordinal}
+{ duplicate$ text.length$ 'charptr :=
+  duplicate$ charptr #1 substring$ 's :=
+  s "1" =
+    { "st" * }
+    { s "2" =
+        { "nd" * }
+        { s "3" =
+            { "rd" * }
+            { "th" * }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+FUNCTION {format.edition}
+{ edition empty$
+    { "" }
+    { edition is.number
+        { is.in.chinese
+            { edition "版" * }
+            { edition num.to.ordinal " ed." * }
+          if$
+        }
+        { entry.lang lang.en =
+            { edition "t" change.case$ 's :=
+              s "Revised" = s "Revised edition" = or
+                { "Rev. ed." }
+                { s " ed." *}
+              if$
+            }
+            { edition }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+%    \end{macrocode}
+%
+% 出版地址和出版社会有 “[S.l.: s.n.]” 的情况，所以必须一起处理。
+%
+%    \begin{macrocode}
+FUNCTION {format.sine.loco}
+{ is.in.chinese
+    { "[出版地不详]" }
+    { "[S.l.]" }
+  if$
+}
+
+FUNCTION {format.address}
+{ address }
+
+FUNCTION {format.sine.nomine}
+{ is.in.chinese
+    { "[出版地不详]" }
+    { "[s.n.]" }
+  if$
+}
+
+FUNCTION {format.publisher}
+{ publisher empty$ not
+    { publisher }
+    { school empty$ not
+        { school }
+        { organization empty$ not
+            { organization }
+            { institution empty$ not
+                { institution }
+                { "" }
+              if$
+            }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+FUNCTION {format.sine.loco.sine.nomine}
+{ is.in.chinese
+    { "[出版地不详: 出版者不详]" }
+    { "[S.l.: s.n.]" }
+  if$
+}
+
+%    \end{macrocode}
+%
+% SWJTU requires no S.l. or s.n. for undergraduates and no S.l.:s.n. for
+% graduates.
+%
+%    \begin{macrocode}
+%<*bachelor>
+FUNCTION {format.address.publisher}
+{ address empty$ not
+    { address
+      format.publisher empty$ not
+        { ": " * format.publisher * }
+        'skip$
+      if$
+    }
+    { format.publisher empty$ not
+        { format.publisher }
+        { "" }
+      if$
+    }
+  if$
+}
+
+%</bachelor>
+%<*!bachelor>
+FUNCTION {format.address.publisher}
+{ address empty$ not
+    { address
+      format.publisher empty$ not
+        { ": " * format.publisher * }
+        { url empty$ doi empty$ and
+            { ": " * format.sine.nomine * }
+            'skip$
+          if$
+        }
+      if$
+    }
+    { url empty$ doi empty$ and
+        { format.publisher empty$ not
+            { format.sine.loco ": " * format.publisher * }
+            { "" }
+          if$
+        }
+        { format.publisher empty$ not
+            { format.publisher }
+            { "" }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+%</!bachelor>
+%    \end{macrocode}
+%
+% This function doesn't begin a sentence so "pages" isn't capitalized.
+% Other functions that use this should keep that in mind.
+%
+%    \begin{macrocode}
+FUNCTION {format.pages}
+{ pages empty$
+    { "" }
+    { pages n.dashify }
+  if$
+}
+
+FUNCTION {format.journal.volume}
+{ volume }
+
+FUNCTION {format.journal.number}
+{ number empty$ not
+    { "\penalty0 (" number * ")" * }
+    { "" }
+  if$
+}
+
+%    \end{macrocode}
+%
+% SWJTU requires italic titles for journals in foriegn languages.
+%
+%    \begin{macrocode}
+FUNCTION {format.journal}
+{ journal
+%<*bachelor>
+  is.in.chinese not
+    { "\textit{" swap$ * "}" * }
+    'skip$
+  if$
+%</bachelor>
+}
+
+%    \end{macrocode}
+%
+% 连续出版物的年卷期有起止范围，需要特殊处理
+%    \begin{macrocode}
+FUNCTION {format.periodical.year.volume.number}
+{ year empty$ not
+    { year extract.before.dash }
+    { "No year in periodical " cite$ * warning$ }
+  if$
+  volume empty$ not
+    { ", " * volume extract.before.dash * }
+    'skip$
+  if$
+  number empty$ not
+    { "\penalty0 (" * number extract.before.dash * ")" * }
+    'skip$
+  if$
+  year contains.dash
+    { "--" *
+      year extract.after.dash empty$
+      volume extract.after.dash empty$ and
+      number extract.after.dash empty$ and not
+        { year extract.after.dash empty$ not
+            { year extract.after.dash * }
+            { year extract.before.dash * }
+          if$
+          volume empty$ not
+            { ", " * volume extract.after.dash * }
+            'skip$
+          if$
+          number empty$ not
+            { "\penalty0 (" * number extract.after.dash * ")" * }
+            'skip$
+          if$
+        }
+        'skip$
+      if$
+    }
+    'skip$
+  if$
+}
+
+%    \end{macrocode}
+%
+% The format.in.ed.booktitle function is used for starting out a sentence
+% that begins "In <booktitle>", putting an editor before the title if one
+% exists.
+%
+%    \begin{macrocode}
+FUNCTION {format.in.ed.booktitle}
+{ booktitle empty$
+    { "" }
+    { editor empty$
+        { "In " booktitle emphasize * }
+        { "In " format.editors * ", " * booktitle emphasize * }
+      if$
+    }
+  if$
+}
+
+%    \end{macrocode}
+%
+% The function empty.misc.check complains if all six fields are empty, and
+% if there's been no sorting or alphabetic-label complaint.
+%
+%    \begin{macrocode}
+FUNCTION {empty.misc.check}
+{ author empty$ title empty$
+  year empty$
+  and and
+  key empty$ not and
+    { "all relevant fields are empty in " cite$ * warning$ }
+    'skip$
+  if$
+}
+
+%    \end{macrocode}
+%
+% Now come the cross-referencing functions (these are invoked because
+% one entry in the database file(s) cross-references another, by giving
+% the other entry's database key in a `crossref' field).  This feature
+% allows one or more titled things that are part of a larger titled
+% thing to cross-reference the larger thing.  These styles allow for
+% five posibilities: (1) an ARTICLE may cross-reference an ARTICLE;
+% (2) a BOOK, (3) INBOOK, or (4) INCOLLECTION may cross-reference a BOOK;
+% or (5) an INPROCEEDINGS may cross-reference a PROCEEDINGS.
+% Each of these is explained in more detail later.
+%
+% An ARTICLE entry type may cross reference another ARTICLE (this is
+% intended for when an entire journal is devoted to a single topic---
+% but since there is no JOURNAL entry type, the journal, too, should be
+% classified as an ARTICLE but without the author and title fields).
+% This will result in two warning messages for the journal's entry
+% if it's included in the reference list, but such is life.
+%
+% format.article.crossref ==
+%  BEGIN
+%       if empty$(key) then
+%           if empty$(journal) then
+%               warning$("need key or journal for " * cite$ *
+%                                               " to crossref " * crossref)
+%               return(" \cite{" * crossref * "}")
+%           else
+%               return("In " * emphazise.correct (journal) *
+%                                               " \cite{" * crossref * "}")
+%               fi
+%       else
+%           return("In " * key * " \cite{" * crossref * "}")
+%       fi
+%  END
+%
+% The other cross-referencing functions are similar, so no "comment version"
+% will be given for them.
+%
+%    \begin{macrocode}
+FUNCTION {format.article.crossref}
+{ key empty$
+    { journal empty$
+        { "need key or journal for " cite$ * " to crossref " * crossref *
+          warning$
+          ""
+        }
+        { "In \emph{" journal * "}" * }
+      if$
+    }
+    { "In " }
+  if$
+  " \citet{" * crossref * "}" *
+}
+
+%    \end{macrocode}
+%
+% A BOOK (or INBOOK) entry type (assumed to be for a single volume in a
+% multivolume work) may cross reference another BOOK (the entire multivolume).
+% Usually there will be an editor, in which case we use that to construct the
+% cross reference; otherwise we use a nonempty key field or else the series
+% field (since the series gives the title of the multivolume work).
+%
+%    \begin{macrocode}
+FUNCTION {format.book.crossref}
+{ volume empty$
+    { "empty volume in " cite$ * "'s crossref of " * crossref * warning$
+      "In "
+    }
+    { "Volume" volume tie.or.space.connect
+      " of " *
+    }
+  if$
+  editor empty$
+  editor field.or.null author field.or.null =
+  or
+    { key empty$
+        { series empty$
+            { "need editor, key, or series for " cite$ * " to crossref " *
+              crossref * warning$
+              "" *
+            }
+            { "\emph{" * series * "}" * }
+          if$
+        }
+        'skip$
+      if$
+    }
+    'skip$
+  if$
+  " \citet{" * crossref * "}" *
+}
+
+%    \end{macrocode}
+%
+% An INCOLLECTION entry type may cross reference a BOOK (assumed to be the
+% collection), or an INPROCEEDINGS may cross reference a PROCEEDINGS.
+% Often there will be an editor, in which case we use that to construct
+% the cross reference; otherwise we use a nonempty key field or else
+% the booktitle field (which gives the cross-referenced work's title).
+%
+%    \begin{macrocode}
+FUNCTION {format.incoll.inproc.crossref}
+{ editor empty$
+  editor field.or.null author field.or.null =
+  or
+    { key empty$
+        { booktitle empty$
+            { "need editor, key, or booktitle for " cite$ * " to crossref " *
+              crossref * warning$
+              ""
+            }
+            { "In \emph{" booktitle * "}" * }
+          if$
+        }
+        { "In " }
+      if$
+    }
+    { "In " }
+  if$
+  " \citet{" * crossref * "}" *
+}
+
+%    \end{macrocode}
+%
+% \subsection{Functions for all entry types}
+%
+% Now we define the type functions for all entry types that may appear
+% in the .BIB file---e.g., functions like `article' and `book'.  These
+% are the routines that actually generate the .BBL-file output for
+% the entry.  These must all precede the READ command.  In addition, the
+% style designer should have a function `default.type' for unknown types.
+% Note: The fields (within each list) are listed in order of appearance,
+% except as described for an `inbook' or a `proceedings'.
+%
+% The article function is for an article in a journal.  An article may
+% CROSSREF another article.
+%       Required fields: author, title, journal, year
+%       Optional fields: volume, number, pages, month, note
+%
+% \begin{pseudocode}
+% article ==
+%  BEGIN
+%       output.bibitem
+%       output.check(format.authors,"author")
+%       new.block
+%       output.check(format.title,"title")
+%       new.block
+%       if missing$(crossref) then
+%           output.check(emphasize(journal),"journal")
+%           output(format.vol.num.pages)
+%           output.check(format.date,"year")
+%       else
+%           output.nonnull(format.article.crossref)
+%           output(format.pages)
+%       fi
+%       new.block
+%       output(note)
+%       fin.entry
+%  END
+% \end{pseudocode}
+%
+% The book function is for a whole book.  A book may CROSSREF another book.
+%       Required fields: author or editor, title, publisher, year
+%       Optional fields: volume or number, series, address, edition, month,
+%                       note
+%
+% \begin{pseudocode}
+% book ==
+%  BEGIN
+%       if empty$(author) then output.check(format.editors,"author and editor")
+%       else    output.check(format.authors,"author")
+%               if missing$(crossref) then
+%                   either.or.check("author and editor",editor)
+%               fi
+%       fi
+%       new.block
+%       output.check(format.btitle,"title")
+%       if missing$(crossref) then
+%           output(format.bvolume)
+%           new.block
+%           output(format.number.series)
+%           new.sentence
+%           output.check(publisher,"publisher")
+%           output(address)
+%       else
+%           new.block
+%           output.nonnull(format.book.crossref)
+%       fi
+%       output(format.edition)
+%       output.check(format.date,"year")
+%       new.block
+%       output(note)
+%       fin.entry
+%  END
+% \end{pseudocode}
+%
+% The other entry functions are all quite similar, so no "comment version"
+% will be given for them.
+%
+% SWJTU requires period instead of a comma between author and year.
+%
+% \subsection{专著}
+%
+%    \begin{macrocode}
+FUNCTION {monograph}
+{ output.bibitem
+  author empty$ not
+    { format.authors }
+    { editor empty$ not
+        { format.editors }
+%<*authoryear>
+        { format.anonymous }
+%</authoryear>
+%<*numerical>
+        { "" }
+%</numerical>
+      if$
+    }
+  if$
+  output
+%<*authoryear>
+  new.block
+  format.year "year" output.check
+%</authoryear>
+  new.block
+  format.series.vol.num.title "title" output.check
+  "M" set.mark
+  format.mark "" output.after
+  new.block
+  format.translators output
+  new.sentence
+  format.edition output
+  new.block
+  format.address.publisher output
+%<*numerical>
+  format.year "year" output.check
+%</numerical>
+  format.pages punct.colon output.after
+  format.urldate "" output.after
+  format.url output
+  format.doi output
+  fin.entry
+}
+
+%    \end{macrocode}
+%
+% \subsection{专著中的析出文献}
+%
+% An incollection is like inbook, but where there is a separate title
+% for the referenced thing (and perhaps an editor for the whole).
+% An incollection may CROSSREF a book.
+%       Required: author, title, booktitle, publisher, year
+%       Optional: editor, volume or number, series, type, chapter, pages,
+%                       address, edition, month, note
+%
+%    \begin{macrocode}
+FUNCTION {incollection}
+{ output.bibitem
+  format.authors "author" output.check
+  author format.key output
+%<*authoryear>
+  format.year "year" output.check
+%</authoryear>
+  new.block
+  format.title "title" output.check
+  "M" set.mark
+  format.mark "" output.after
+  new.block
+  format.translators output
+  new.slash
+  format.editors output
+  new.block
+  format.series.vol.num.booktitle "booktitle" output.check
+  new.block
+  format.edition output
+  new.block
+  format.address.publisher output
+%<*numerical>
+  format.year "year" output.check
+%</numerical>
+  format.pages punct.colon output.after
+  format.urldate "" output.after
+  format.url output
+  format.doi output
+  fin.entry
+}
+
+%    \end{macrocode}
+%
+% \subsection{连续出版物}
+%
+%    \begin{macrocode}
+FUNCTION {periodical}
+{ output.bibitem
+  format.authors "author" output.check
+  author format.key output
+%<*authoryear>
+  new.block
+  format.year "year" output.check
+%</authoryear>
+  new.block
+  format.title "title" output.check
+  "J" set.mark
+  format.mark "" output.after
+  new.block
+  format.periodical.year.volume.number output
+  new.block
+  format.address.publisher output
+%<*numerical>
+  format.date "year" output.check
+%</numerical>
+  format.urldate "" output.after
+  format.url output
+  format.doi output
+  fin.entry
+}
+
+%    \end{macrocode}
+%
+% \subsection{连续出版物中的析出文献}
+%
+%    \begin{macrocode}
+FUNCTION {article.in.journal}
+{ output.bibitem
+  format.authors "author" output.check
+  author format.key output
+%<*authoryear>
+  new.block
+  format.year "year" output.check
+%</authoryear>
+  new.block
+  format.title "title" output.check
+  "J" set.mark
+  format.mark "" output.after
+  new.block
+  format.journal "journal" output.check
+%<*numerical>
+  format.date "year" output.check
+%</numerical>
+  volume output
+  format.journal.number "" output.after
+  format.pages punct.colon output.after
+  format.editdate "" output.after
+  format.urldate "" output.after
+  format.url output
+  format.doi output
+  fin.entry
+}
+
+%    \end{macrocode}
+%
+% \subsection{专利文献}
+%
+% number 域也可以用来表示专利号。
+%
+%    \begin{macrocode}
+FUNCTION {patent}
+{ output.bibitem
+  format.authors output
+  author format.key output
+%<*authoryear>
+  new.block
+  format.year "year" output.check
+%</authoryear>
+  new.block
+  format.title
+  number empty$ not
+    { punct.colon * number * }
+    'skip$
+  if$
+  "title" output.check
+  "P" set.mark
+  format.mark "" output.after
+  new.block
+  format.date "year" output.check
+  format.urldate "" output.after
+  format.url output
+  format.doi output
+  fin.entry
+}
+
+%    \end{macrocode}
+%
+% \subsection{电子资源}
+%
+%    \begin{macrocode}
+FUNCTION {online}
+{ output.bibitem
+  format.authors output
+  author format.key output
+%<*authoryear>
+  new.block
+  format.year "year" output.check
+%</authoryear>
+  new.block
+  format.series.vol.num.title "title" output.check
+  "EB" set.mark
+  format.mark "" output.after
+  new.block
+  format.address.publisher output
+%<*numerical>
+  date empty$
+    { format.date output }
+    'skip$
+  if$
+%</numerical>
+  format.pages punct.colon output.after
+  format.editdate "" output.after
+  format.urldate "" output.after
+  format.url output
+  format.doi output
+  fin.entry
+}
+
+%    \end{macrocode}
+%
+% A misc is something that doesn't fit elsewhere.
+%       Required: at least one of the `optional' fields
+%       Optional: author, title, howpublished, month, year, note
+%
+% Misc 用来自动判断类型。
+%    \begin{macrocode}
+FUNCTION {misc}
+{ journal empty$ not
+    'article.in.journal
+    { booktitle empty$ not
+        'incollection
+        { url empty$ not
+            'online
+            { "Z" set.mark
+              monograph
+            }
+          if$
+        }
+      if$
+    }
+  if$
+  empty.misc.check
+}
+
+FUNCTION {archive}
+{ "A" set.mark
+  misc
+}
+
+FUNCTION {article} { misc }
+
+FUNCTION {book} { monograph }
+
+FUNCTION {collection}
+{ "G" set.mark
+  monograph
+}
+
+FUNCTION {database}
+{ "DB" set.mark
+  misc
+}
+
+FUNCTION {dataset}
+{ "DS" set.mark
+  misc
+}
+
+%    \end{macrocode}
+%
+% An inbook is a piece of a book: either a chapter and/or a page range.
+% It may CROSSREF a book.  If there's no volume field, the type field
+% will come before number and series.
+%
+%       Required: author or editor, title, chapter and/or pages, publisher,year
+%
+%       Optional: volume or number, series, type, address, edition, month, note
+%
+% inbook 类是不含 booktitle 域的，所以不应该适用于“专著中的析出文献”，而应该是专
+% 著，即 book 类。
+%
+%    \begin{macrocode}
+FUNCTION {inbook} { book }
+
+%    \end{macrocode}
+%
+% An inproceedings is an article in a conference proceedings, and it may
+% CROSSREF a proceedings.  If there's no address field, the month (\& year)
+% will appear just before note.
+%       Required: author, title, booktitle, year
+%       Optional: editor, volume or number, series, pages, address, month,
+%                       organization, publisher, note
+%
+%    \begin{macrocode}
+FUNCTION {inproceedings}
+{ "C" set.mark
+  incollection
+}
+
+%    \end{macrocode}
+%
+% The conference function is included for Scribe compatibility.
+%
+%    \begin{macrocode}
+FUNCTION {conference} { inproceedings }
+
+FUNCTION {map}
+{ "CM" set.mark
+  misc
+}
+
+%    \end{macrocode}
+%
+% A mastersthesis is a Master's thesis.
+%       Required: author, title, school, year
+%       Optional: type, address, month, note
+%
+%    \begin{macrocode}
+FUNCTION {mastersthesis}
+{ "D" set.mark
+  monograph
+}
+
+FUNCTION {newspaper}
+{ "N" set.mark
+  article.in.journal
+}
+
+%    \end{macrocode}
+%
+% A phdthesis is like a mastersthesis.
+%       Required: author, title, school, year
+%       Optional: type, address, month, note
+%
+%    \begin{macrocode}
+FUNCTION {phdthesis} { mastersthesis }
+
+%    \end{macrocode}
+%
+% A proceedings is a conference proceedings.
+% If there is an organization but no editor field, the organization will
+% appear as the first optional field (we try to make the first block nonempty);
+% if there's no address field, the month (\& year) will appear just before note.
+%       Required: title, year
+%       Optional: editor, volume or number, series, address, month,
+%                       organization, publisher, note
+%
+%    \begin{macrocode}
+FUNCTION {proceedings}
+{ "C" set.mark
+  monograph
+}
+
+FUNCTION {software}
+{ "CP" set.mark
+  misc
+}
+
+FUNCTION {standard}
+{ "S" set.mark
+  misc
+}
+
+%    \end{macrocode}
+%
+% A techreport is a technical report.
+%       Required: author, title, institution, year
+%       Optional: type, number, address, month, note
+%
+%    \begin{macrocode}
+FUNCTION {techreport}
+{ "R" set.mark
+  misc
+}
+
+%    \end{macrocode}
+%
+% We use entry type `misc' for an unknown type; BibTeX gives a warning.
+%
+%    \begin{macrocode}
+FUNCTION {default.type} { misc }
+
+%    \end{macrocode}
+%
+% \subsection{Common macros}
+%
+% Here are macros for common things that may vary from style to style.
+% Users are encouraged to use these macros.
+%
+% Months are either written out in full or abbreviated
+%
+%    \begin{macrocode}
+MACRO {jan} {"January"}
+
+MACRO {feb} {"February"}
+
+MACRO {mar} {"March"}
+
+MACRO {apr} {"April"}
+
+MACRO {may} {"May"}
+
+MACRO {jun} {"June"}
+
+MACRO {jul} {"July"}
+
+MACRO {aug} {"August"}
+
+MACRO {sep} {"September"}
+
+MACRO {oct} {"October"}
+
+MACRO {nov} {"November"}
+
+MACRO {dec} {"December"}
+
+%    \end{macrocode}
+%
+% Journals are either written out in full or abbreviated;
+% the abbreviations are like those found in ACM publications.
+%
+% To get a completely different set of abbreviations, it may be best to make
+% a separate .bib file with nothing but those abbreviations; users could then
+% include that file name as the first argument to the \bibliography command
+%
+%    \begin{macrocode}
+MACRO {acmcs} {"ACM Computing Surveys"}
+
+MACRO {acta} {"Acta Informatica"}
+
+MACRO {cacm} {"Communications of the ACM"}
+
+MACRO {ibmjrd} {"IBM Journal of Research and Development"}
+
+MACRO {ibmsj} {"IBM Systems Journal"}
+
+MACRO {ieeese} {"IEEE Transactions on Software Engineering"}
+
+MACRO {ieeetc} {"IEEE Transactions on Computers"}
+
+MACRO {ieeetcad}
+ {"IEEE Transactions on Computer-Aided Design of Integrated Circuits"}
+
+MACRO {ipl} {"Information Processing Letters"}
+
+MACRO {jacm} {"Journal of the ACM"}
+
+MACRO {jcss} {"Journal of Computer and System Sciences"}
+
+MACRO {scp} {"Science of Computer Programming"}
+
+MACRO {sicomp} {"SIAM Journal on Computing"}
+
+MACRO {tocs} {"ACM Transactions on Computer Systems"}
+
+MACRO {tods} {"ACM Transactions on Database Systems"}
+
+MACRO {tog} {"ACM Transactions on Graphics"}
+
+MACRO {toms} {"ACM Transactions on Mathematical Software"}
+
+MACRO {toois} {"ACM Transactions on Office Information Systems"}
+
+MACRO {toplas} {"ACM Transactions on Programming Languages and Systems"}
+
+MACRO {tcs} {"Theoretical Computer Science"}
+
+%    \end{macrocode}
+%
+% \subsection{Read bib entries and execute}
+%
+% Now we read in the .BIB entries.
+%
+%    \begin{macrocode}
+READ
+
+EXECUTE {init.state.consts}
+
+FUNCTION {set.entry.lang}
+{ language empty$
+    { author field.or.null title field.or.null * get.str.lang }
+    { language "english" = language "american" = or language "british" = or
+        { lang.en }
+        { language "chinese" =
+            { lang.zh }
+            { language "japanese" =
+                { lang.ja }
+                { language "russian" =
+                    { lang.ru }
+                    { lang.other }
+                  if$
+                }
+              if$
+            }
+          if$
+        }
+      if$
+    }
+  if$
+  'entry.lang :=
+}
+
+%    \end{macrocode}
+%
+% The sortify function converts to lower case after |purify$|ing; it's
+% used in sorting and in computing alphabetic labels after sorting
+%
+% The chop.word(w,len,s) function returns either s or, if the first len
+% letters of s equals w (this comparison is done in the third line of the
+% function's definition), it returns that part of s after w.
+%
+%    \begin{macrocode}
+FUNCTION {sortify}
+{ purify$
+  "l" change.case$
+}
+
+%    \end{macrocode}
+%
+% We need the chop.word stuff for the dubious unsorted-list-with-labels case.
+%
+%    \begin{macrocode}
+INTEGERS { len }
+
+FUNCTION {chop.word}
+{ 's :=
+  'len :=
+  s #1 len substring$ =
+    { s len #1 + global.max$ substring$ }
+    's
+  if$
+}
+
+FUNCTION {format.lab.names}
+{ 's :=
+  s #1 "{vv~}{ll}{, jj}{, ff}" format.name$ 't :=
+  t get.str.lang 'name.lang :=
+  name.lang lang.en =
+    { t #1 "{vv~}{ll}" format.name$}
+    { t #1 "{ll}{ff}" format.name$}
+  if$
+  s num.names$ #1 >
+    { "\ " * format.et.al * }
+    'skip$
+  if$
+}
+
+FUNCTION {author.key.label}
+{ author empty$
+    { key empty$
+        { cite$ #1 #3 substring$ }
+        'key
+      if$
+    }
+    { author format.lab.names }
+  if$
+}
+
+FUNCTION {author.editor.key.label}
+{ author empty$
+    { editor empty$
+        { key empty$
+            { cite$ #1 #3 substring$ }
+            'key
+          if$
+        }
+        { editor format.lab.names }
+      if$
+    }
+    { author format.lab.names }
+  if$
+}
+
+FUNCTION {author.key.organization.label}
+{ author empty$
+    { key empty$
+        { organization empty$
+            { cite$ #1 #3 substring$ }
+            { "The " #4 organization chop.word #3 text.prefix$ }
+          if$
+        }
+        'key
+      if$
+    }
+    { author format.lab.names }
+  if$
+}
+
+FUNCTION {editor.key.organization.label}
+{ editor empty$
+    { key empty$
+        { organization empty$
+            { cite$ #1 #3 substring$ }
+            { "The " #4 organization chop.word #3 text.prefix$ }
+          if$
+        }
+        'key
+      if$
+    }
+    { editor format.lab.names }
+  if$
+}
+
+FUNCTION {calc.short.authors}
+{ type$ "book" =
+  type$ "inbook" =
+  or
+    'author.editor.key.label
+    { type$ "collection" =
+      type$ "proceedings" =
+      or
+        { editor empty$ not
+            'editor.key.organization.label
+            'author.key.organization.label
+          if$
+        }
+        'author.key.label
+      if$
+    }
+  if$
+  'short.list :=
+}
+
+FUNCTION {calc.label}
+{ calc.short.authors
+  short.list
+  "("
+  *
+  format.year duplicate$ empty$
+  short.list key field.or.null = or
+     { pop$ "" }
+     'skip$
+  if$
+  *
+  'label :=
+}
+
+%    \end{macrocode}
+%
+% When sorting, we compute the sortkey by executing "presort" on each entry.
+% The presort key contains a number of "sortify"ed strings, concatenated
+% with multiple blanks between them.  This makes things like "brinch  per"
+% come before "brinch hansen  per".
+%
+% The fields used here are: the sort.label for alphabetic labels (as set by
+% calc.label), followed by the author names (or editor names or organization
+% (with a leading "The " removed) or key field, depending on entry type and on
+% what's empty), followed by year, followed by the first bit of the title
+% (chopping off a leading "The ", "A ", or "An ").
+% Names are formatted: Von Last First Junior.
+% The names within a part will be separated by a single blank
+% (such as "brinch hansen"), two will separate the name parts themselves
+% (except the von and last), three will separate the names,
+% four will separate the names from year (and from label, if alphabetic),
+% and four will separate year from title.
+%
+% The sort.format.names function takes an argument that should be in
+% BibTeX name format, and returns a string containing "   "-separated
+% names in the format described above.  The function is almost the same
+% as format.names.
+%
+%    \begin{macrocode}
+%<*authoryear>
+FUNCTION {sort.language.label}
+{ entry.lang lang.zh =
+    { "a zh " }
+    { entry.lang lang.ja =
+        { "b ja " }
+        { entry.lang lang.en =
+            { "c en " }
+            { entry.lang lang.ru =
+                { "d ru " }
+                { "e other " }
+              if$
+            }
+          if$
+        }
+      if$
+    }
+  if$
+}
+
+FUNCTION {sort.format.names}
+{ 's :=
+  #1 'nameptr :=
+  ""
+  s num.names$ 'numnames :=
+  numnames 'namesleft :=
+    { namesleft #0 > }
+    {
+      s nameptr "{vv{ } }{ll{ }}{  ff{ }}{  jj{ }}" format.name$ 't :=
+      nameptr #1 >
+        {
+          "   "  *
+          namesleft #1 = t "others" = and
+            { "zzzzz" * }
+            { numnames #2 > nameptr #2 = and
+                { "zz" * year field.or.null * "   " * }
+                'skip$
+              if$
+              t sortify *
+            }
+          if$
+        }
+        { t sortify * }
+      if$
+      nameptr #1 + 'nameptr :=
+      namesleft #1 - 'namesleft :=
+    }
+  while$
+}
+
+%    \end{macrocode}
+%
+% The sort.format.title function returns the argument,
+% but first any leading "A "'s, "An "'s, or "The "'s are removed.
+% The chop.word function uses s, so we need another string variable, t
+%
+%    \begin{macrocode}
+FUNCTION {sort.format.title}
+{ 't :=
+  "A " #2
+    "An " #3
+      "The " #4 t chop.word
+    chop.word
+  chop.word
+  sortify
+  #1 global.max$ substring$
+}
+
+%    \end{macrocode}
+%
+% The auxiliary functions here, for the presort function, are analogous to
+% the ones for calc.label; the same comments apply, except that the
+% organization field takes precedence here over the key field.  For sorting
+% purposes, we still remove a leading "The " from the organization field.
+%
+%    \begin{macrocode}
+FUNCTION {anonymous.sort}
+{ is.in.chinese
+    { "yi4 ming2" }
+    { "anon" }
+  if$
+}
+
+FUNCTION {author.sort}
+{ key empty$
+    { author empty$
+        { anonymous.sort }
+        { author sort.format.names }
+      if$
+    }
+    { key sortify }
+  if$
+}
+
+FUNCTION {author.editor.sort}
+{ key empty$
+    { author empty$
+        { editor empty$
+            { anonymous.sort }
+            { editor sort.format.names }
+          if$
+        }
+        { author sort.format.names }
+      if$
+    }
+    { key sortify }
+  if$
+}
+
+FUNCTION {author.organization.sort}
+{ key empty$
+    { author empty$
+        { organization empty$
+            { anonymous.sort }
+            { "The " #4 organization chop.word sortify }
+          if$
+        }
+        { author sort.format.names }
+      if$
+    }
+    { key sortify }
+  if$
+}
+
+FUNCTION {editor.organization.sort}
+{ key empty$
+    { editor empty$
+        { organization empty$
+            { anonymous.sort }
+            { "The " #4 organization chop.word sortify }
+          if$
+        }
+        { editor sort.format.names }
+      if$
+    }
+    { key sortify }
+  if$
+}
+
+%</authoryear>
+%<*numerical>
+INTEGERS { seq.num }
+
+FUNCTION {init.seq}
+{ #0 'seq.num :=}
+
+EXECUTE {init.seq}
+
+FUNCTION {int.to.fix}
+{ "000000000" swap$ int.to.str$ *
+  #-1 #10 substring$
+}
+
+%</numerical>
+%    \end{macrocode}
+%
+% There is a limit, entry.max$, on the length of an entry string variable
+% (which is what its sort.key$ is), so we take at most that many characters
+% of the constructed key, and hope there aren't many references that match
+% to that many characters!
+%
+%    \begin{macrocode}
+FUNCTION {presort}
+{ set.entry.lang
+  calc.label
+  label sortify
+  "    "
+  *
+%<*authoryear>
+  sort.language.label
+  type$ "book" =
+  type$ "inbook" =
+  or
+    'author.editor.sort
+    { type$ "collection" =
+      type$ "proceedings" =
+      or
+        'editor.organization.sort
+        'author.sort
+      if$
+    }
+  if$
+  *
+  "    "
+  *
+  year field.or.null sortify
+  *
+  "    "
+  *
+  cite$
+  *
+  #1 entry.max$ substring$
+%</authoryear>
+%<*numerical>
+  seq.num #1 + 'seq.num :=
+  seq.num  int.to.fix
+%</numerical>
+  'sort.label :=
+  sort.label *
+  #1 entry.max$ substring$
+  'sort.key$ :=
+}
+
+ITERATE {presort}
+
+%    \end{macrocode}
+%
+% And now we can sort
+%
+%    \begin{macrocode}
+SORT
+
+%    \end{macrocode}
+%
+% Now comes the final computation for alphabetic labels, putting in the 'a's
+% and 'b's and so forth if required.  This involves two passes: a forward
+% pass to put in the 'b's, 'c's and so on, and a backwards pass
+% to put in the 'a's (we don't want to put in 'a's unless we know there
+% are 'b's).
+% We have to keep track of the longest (in |width$| terms) label, for use
+% by the "thebibliography" environment.
+%
+% \begin{pseudocode}
+% VAR: longest.label, last.sort.label, next.extra: string
+%      longest.label.width, last.extra.num: integer
+%
+% initialize.longest.label ==
+%  BEGIN
+%       longest.label := ""
+%       last.sort.label := int.to.chr$(0)
+%       next.extra := ""
+%       longest.label.width := 0
+%       last.extra.num := 0
+%  END
+%
+% forward.pass ==
+%  BEGIN
+%       if last.sort.label = sort.label then
+%           last.extra.num := last.extra.num + 1
+%           extra.label := int.to.chr$(last.extra.num)
+%       else
+%           last.extra.num := chr.to.int$("a")
+%           extra.label := ""
+%           last.sort.label := sort.label
+%       fi
+%  END
+%
+% reverse.pass ==
+%  BEGIN
+%       if next.extra = "b" then
+%           extra.label := "a"
+%       fi
+%       label := label * extra.label
+%       if width$(label) > longest.label.width then
+%           longest.label := label
+%           longest.label.width := width$(label)
+%       fi
+%       next.extra := extra.label
+%  END
+% \end{pseudocode}
+%
+%    \begin{macrocode}
+STRINGS { longest.label last.label next.extra }
+
+INTEGERS { longest.label.width last.extra.num number.label }
+
+FUNCTION {initialize.longest.label}
+{ "" 'longest.label :=
+  #0 int.to.chr$ 'last.label :=
+  "" 'next.extra :=
+  #0 'longest.label.width :=
+  #0 'last.extra.num :=
+  #0 'number.label :=
+}
+
+FUNCTION {forward.pass}
+{ last.label label =
+    { last.extra.num #1 + 'last.extra.num :=
+      last.extra.num int.to.chr$ 'extra.label :=
+    }
+    { "a" chr.to.int$ 'last.extra.num :=
+      "" 'extra.label :=
+      label 'last.label :=
+    }
+  if$
+  number.label #1 + 'number.label :=
+}
+
+FUNCTION {reverse.pass}
+{ next.extra "b" =
+    { "a" 'extra.label := }
+    'skip$
+  if$
+  extra.label 'next.extra :=
+  extra.label
+  duplicate$ empty$
+    'skip$
+    { "{\natexlab{" swap$ * "}}" * }
+  if$
+  'extra.label :=
+  label extra.label * 'label :=
+}
+
+EXECUTE {initialize.longest.label}
+
+ITERATE {forward.pass}
+
+REVERSE {reverse.pass}
+
+FUNCTION {bib.sort.order}
+{ sort.label  'sort.key$ :=
+}
+
+ITERATE {bib.sort.order}
+
+SORT
+
+%    \end{macrocode}
+%
+% Now we're ready to start writing the .BBL file.
+% We begin, if necessary, with a LaTeX macro for unnamed names in an alphabetic
+% label; next comes stuff from the `preamble' command in the database files.
+% Then we give an incantation containing the command
+%     |\begin{thebibliography}{...}|
+% where the `...' is the longest label.
+%
+% We also call init.state.consts, for use by the output routines.
+%
+%    \begin{macrocode}
+FUNCTION {begin.bib}
+{   preamble$ empty$
+    'skip$
+    { preamble$ write$ newline$ }
+  if$
+  "\begin{thebibliography}{" number.label int.to.str$ * "}" *
+  write$ newline$
+  "\providecommand{\natexlab}[1]{#1}"
+  write$ newline$
+  "\providecommand{\url}[1]{#1}"
+  write$ newline$
+  "\providecommand{\href}[2]{\url{#2}}"
+  write$ newline$
+  "\providecommand{\doi}[1]{DOI: \href{http://dx.doi.org/#1}{#1}}"
+  write$ newline$
+  "\expandafter\ifx\csname urlstyle\endcsname\relax\relax\else"
+  write$ newline$
+  "  \urlstyle{same}\fi"
+  write$ newline$
+}
+
+EXECUTE {begin.bib}
+
+%    \end{macrocode}
+%
+% Now we produce the output for all the entries
+%
+%    \begin{macrocode}
+ITERATE {call.type$}
+
+%    \end{macrocode}
+%
+% Finally, we finish up by writing the `|\end{thebibliography}|' command.
+%
+%    \begin{macrocode}
+FUNCTION {end.bib}
+{ newline$
+  "\end{thebibliography}" write$ newline$
+}
+
+EXECUTE {end.bib}
+%</authoryear|numerical|bachelor>
+%    \end{macrocode}
+%
+% \clearpage
+% \Finale
+\endinput

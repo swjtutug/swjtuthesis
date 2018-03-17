@@ -1,0 +1,65 @@
+%!TEX encoding = UTF-8 Unicode
+%!TEX program = xelatex
+
+\documentclass[doctor]{swjtuthesis}
+% bachelor|master|doctor [professional] [english] [pdf] [authoryear|numebers]
+\usepackage{swjtuextra}
+\graphicspath{{figures/}}
+
+\title{西南交通大学\\学位论文模板示例文档}
+\author{陈昌福}
+\major{大地测量学}
+\supervisor{教授}
+% \cosupervisor{\ 教授}
+% \date{二〇一七年五月一日}    % 注释掉则为今日
+% \professionaltype{专业学位类型}
+% \secrettext{机密\quad 小于等于20年}    % 内部|秘密|机密，注释本行则不保密
+
+\entitle{An Example of SWJTU Thesis Template for Bachelor, Master and Doctor}
+\enauthor{Changfu Chen}
+\enmajor{Geodesy}
+\ensupervisor{Prof.}
+% \encosupervisor{Prof. }
+% \endate{May 1, 2018}    % today if commented
+% \enprofessionaltype{Professional degree type}
+% \ensecrettext{Confidential\quad Less than or equal to 20 years}
+% Internal|Secret|Confidential
+
+\begin{document}
+
+\maketitle
+
+% 本科论文:
+%   frontmatter: 致谢、目录、中文摘要、英文摘要
+%   mainmatter: 正文章节、参考文献
+%   appendix: 附录
+%
+% 硕博论文:
+%   frontmatter: 中文摘要、英文摘要、目录、符号说明
+%   mainmatter: 正文、参考文献
+%   appendix: 附录
+%   backmatter: 致谢、发表论文
+
+\frontmatter
+\input{chapters/abstract}
+\tableofcontents
+% \listoffigures
+% \listoftables
+% \listofalgorithms
+% \input{chapters/0.notation}
+
+\mainmatter
+\input{chapters/intro}
+\input{chapters/math}
+\input{chapters/floats}
+\input{chapters/citations}
+\bibliography{bib/swjtu}
+
+\appendix
+\chapter{论文规范}
+
+\backmatter
+\input{chapters/acknowledgements}
+\input{chapters/publications}
+
+\end{document}

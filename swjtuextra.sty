@@ -1,0 +1,111 @@
+%%
+%% This is file `swjtuextra.sty':
+%% extra packages and configuration.
+%%
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{swjtuextra}
+
+% 数学符号：
+\RequirePackage{amsmath,amsthm}
+\newcommand\eu{\mathrm{e}}
+\newcommand\iu{\mathrm{i}}
+\newcommand*{\diff}{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+% 数学定理：
+% 以下定义数学定理环境默认风格为 swjtuplain。
+\newtheoremstyle{swjtuplain}%
+    {}{}%
+    {}{2\ccwd}%
+    {\bfseries}{}%
+    {\ccwd}{}
+\theoremstyle{swjtuplain}
+% 定义新的定理
+\if@swjtu@english
+  \newcommand\swjtu@assertionname{Assertion}
+  \newcommand\swjtu@axiomname{Axiom}
+  \newcommand\swjtu@corollaryname{Corollary}
+  \newcommand\swjtu@definitionname{Definition}
+  \newcommand\swjtu@examplename{Example}
+  \newcommand\swjtu@lemmaname{Lemma}
+  \newcommand\swjtu@proofname{Proof}
+  \newcommand\swjtu@propositionname{Proposition}
+  \newcommand\swjtu@remarkname{Remark}
+  \newcommand\swjtu@theoremname{Theorem}
+\else
+  \newcommand\swjtu@assertionname{断言}
+  \newcommand\swjtu@axiomname{公理}
+  \newcommand\swjtu@corollaryname{推论}
+  \newcommand\swjtu@definitionname{定义}
+  \newcommand\swjtu@examplename{例}
+  \newcommand\swjtu@lemmaname{引理}
+  \newcommand\swjtu@proofname{证明}
+  \newcommand\swjtu@propositionname{命题}
+  \newcommand\swjtu@remarkname{注}
+  \newcommand\swjtu@theoremname{定理}
+\fi
+\newtheorem{theorem}                {\swjtu@theoremname}     [chapter]
+\newtheorem{assertion}  [theorem]   {\swjtu@assertionname}
+\newtheorem{axiom}      [theorem]   {\swjtu@axiomname}
+\newtheorem{corollary}  [theorem]   {\swjtu@corollaryname}
+\newtheorem{lemma}      [theorem]   {\swjtu@lemmaname}
+\newtheorem{proposition}[theorem]   {\swjtu@propositionname}
+\newtheorem{definition}             {\swjtu@definitionname}  [chapter]
+\newtheorem{example}                {\swjtu@examplename}     [chapter]
+\newtheorem*{remark}                {\swjtu@remarkname}
+% \pkg{amsthm} 单独定义了 proof 环境，这里重新定义以满足格式要求。
+% 原本模仿 \pkg{amsthm} 写成 |\item[\hskip\labelsep\hskip2\ccwd #1\hskip\ccwd]|，
+% 但是却会多出一些间隙。
+\renewenvironment{proof}[1][\proofname]{\par
+    \pushQED{\qed}%
+    \normalfont \topsep6\p@\@plus6\p@\relax
+    \trivlist
+        \item\relax\hskip2\ccwd
+        \textbf{#1}
+        \hskip\ccwd\ignorespaces
+    }{%
+    \popQED\endtrivlist\@endpefalse
+}
+\renewcommand\proofname\swjtu@proofname
+
+% 表格：
+% 三线表
+\RequirePackage{booktabs}
+% 跨页表格
+\RequirePackage{longtable}
+
+% 算法和代码：
+% 算法环境
+\RequirePackage[boxed, algochapter, lined, linesnumbered]{algorithm2e}
+\if@swjtu@english
+  \renewcommand\listalgorithmcfname{List of Algorithms}
+  \renewcommand\algorithmcfname{Algorithm}
+\else
+  \renewcommand{\listalgorithmcfname}{算法索引}
+  \renewcommand{\algorithmcfname}{算法}
+\fi
+% 使算法目录另起一页
+\let\swjtu@save@listofalgorithms=\listofalgorithms
+\renewcommand\listofalgorithms{%
+    \cleardoublepage%
+    \swjtu@save@listofalgorithms}
+% 代码环境
+\RequirePackage{listings}
+\lstset{
+    basicstyle=\small\ttfamily,
+    xleftmargin=2pc,
+    xrightmargin=2pc,
+    frame=single,
+    columns=flexible,
+    numbers=left,
+}
+\if@swjtu@english
+  \renewcommand\lstlistlistingname{List of Code}
+  \renewcommand\lstlistingname{Code}
+\else
+  \renewcommand{\lstlistlistingname}{代码索引}
+  \renewcommand{\lstlistingname}{代码}
+\fi
+\endinput
+%%
+%% End of file `swjtuextra.sty'.
