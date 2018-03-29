@@ -20,7 +20,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{swjtuthesis}
-    [2018/03/16 v1.0 SWJTU thesis template]
+    [2018/03/28 v1.1 SWJTU thesis template]
 \newif\if@swjtu@doctor
 \newif\if@swjtu@master
 \newif\if@swjtu@bachelor

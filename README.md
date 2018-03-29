@@ -3,7 +3,7 @@
 [![Travis build](https://travis-ci.org/swjtutug/swjtuthesis.svg?branch=master)](https://travis-ci.org/swjtutug/swjtuthesis)
 [![GitHub release](https://img.shields.io/github/release/swjtutug/swjtuthesis/all.svg)](https://github.com/swjtutug/swjtuthesis/releases/latest)
 [![Github downloads](https://img.shields.io/github/downloads/swjtutug/swjtuthesis/total.svg)](https://github.com/swjtutug/swjtuthesis/releases)
-[![GitHub commits](https://img.shields.io/github/commits-since/swjtutug/swjtuthesis/v1.0.svg)](https://github.com/swjtutug/swjtuthesis/commits/master)
+[![GitHub commits](https://img.shields.io/github/commits-since/swjtutug/swjtuthesis/v1.1.svg)](https://github.com/swjtutug/swjtuthesis/commits/master)
 
 本项目是西南交通大学的学位论文 LaTeX 模板 swjtuthesis，按照最新版的
 《[西南交通大学研究生学位论文撰写规范](http://gs.swjtu.edu.cn/ws/gs/dd/25)》
