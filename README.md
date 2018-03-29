@@ -14,7 +14,7 @@
 注意：
 
 1. 使用说明文档
-[swjtuthesis.pdf](https://github.com/swjtutug/swjtuthesis/releases/download/v1.0/swjtuthesis.pdf)
+[swjtuthesis.pdf](https://github.com/swjtutug/swjtuthesis/releases/download/v1.1/swjtuthesis.pdf)
 在发布版中附带，用户也可自行编译获取说明文档；**使用模板前应仔细阅读**。
 
 2. 本模板要求 TeX Live、MacTeX、MikTeX 不低于 2015 年的发行版，
