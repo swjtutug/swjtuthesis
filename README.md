@@ -22,7 +22,11 @@
 
 3. **不支持** [CTeX 套装](http://www.ctex.org/CTeXDownload)。
 
-4. 初始版本无法利用 `make` 编译运行，但是其他方式可以的，主要是版本的依赖问题。
+4. 初始版本无法利用 `make doc` 编译运行，但是其他方式可以的，主要是[环境变量依赖](#jump) 问题。
+``` bash
+sudo apt-get remove --purge texlive-base 
+sudo apt-get remove --purge texlive-binaries tex-common 
+```
 
 5. 国内网络部分时间可能无法正常访问，访问时间较长。主要注意相关的设置含义，配置
 [Travis CI](https://travis-ci.org/swjtutug/swjtuthesis)
@@ -57,3 +61,9 @@
    make            # 编译生成论文 main.pdf
    make clean      # 删除编译过程中生成的临时文件
    ```
+
+## <span id="jump">环境变量依赖</span>
+之前(2018年3月29日11:32:45)的* `latexmk swjtuthesis.dtx` 也是存在问题，无法正常编译。
+删除上述软件后即实现了正常编译，主要问题是路径问题，最初利用了系统的安装库。
+v1.0其实也是没有问题，因为在 `Travis CI` 中可以编译通过，主要问题在于本地无法编译通过。
+前期运行过 `apt-get install texlive-binaries` ，重新定义texlive的环境变量路径。
