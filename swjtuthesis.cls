@@ -6,7 +6,7 @@
 %%
 %% swjtuthesis.dtx  (with options: `class')
 %% 
-%% Copyright (C) 2018-2018 by Changfu Chen <geosciman@163.com>
+%% Copyright (C) 2018-2018 by GeosciMan <geosciman@163.com>
 %% 
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either
@@ -104,7 +104,7 @@
 }
 \swjtu@define@term{professionaltype}
 \swjtu@define@term{title}
-\swjtu@define@term{ClassifiedIndex}
+\swjtu@define@term{classifiedindex}
 \swjtu@define@term{UDC}
 \swjtu@define@term{secrettext}
 \swjtu@define@term{grade}
@@ -116,6 +116,8 @@
 \swjtu@define@term{date}
 \swjtu@define@term{enprofessionaltype}
 \swjtu@define@term{entitle}
+\swjtu@define@term{enclassifiedindex}
+\swjtu@define@term{enUDC}
 \swjtu@define@term{ensecrettext}
 \swjtu@define@term{engrade}
 \swjtu@define@term{enauthor}
@@ -391,7 +393,7 @@
     \begin{titlepage}%
         \tikz[remember picture,overlay]%
             \node [yshift=-4cm] at (current page.north) [below,align=flush center]%
-                {\parbox{\textwidth}{\raggedright\fangsong\setfontsize{14\bp@}\swjtu@ClassifiedIndex}};%
+                {\parbox{\textwidth}{\raggedright\fangsong\setfontsize{14\bp@}\swjtu@classifiedindex}};%
                 {\parbox{\textwidth}{\raggedleft\fangsong\setfontsize{14\bp@}\swjtu@secrettext}}%
         \tikz[remember picture,overlay]%
             \node [yshift=-5cm] at (current page.north) [below,align=flush center]%
@@ -423,10 +425,10 @@
     \begin{titlepage}%
         \tikz[remember picture,overlay]%
             \node [yshift=-2cm] at (current page.north) [below,align=flush center]%
-                {\parbox{\textwidth}{\raggedright\setfontsize{14\bp@}\swjtu@ClassifiedIndex}};%
+                {\parbox{\textwidth}{\raggedright\setfontsize{14\bp@}\swjtu@enclassifiedindex}};%
         \tikz[remember picture,overlay]%
             \node [yshift=-3cm] at (current page.north) [below,align=flush center]%
-                {\parbox{\textwidth}{\raggedright\fangsong\setfontsize{14\bp@}\swjtu@UDC}};%
+                {\parbox{\textwidth}{\raggedright\fangsong\setfontsize{14\bp@}\swjtu@enUDC}};%
         \vpostext{4.9cm}{\sffamily\setfontsize{26\bp@}[30\bp@]\swjtu@enthesisname}%
         \if@swjtu@professional
           \vpostext{6.2cm}{\setfontsize{16\bp@}\swjtu@enprofessionaltype}%

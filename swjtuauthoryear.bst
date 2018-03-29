@@ -6,7 +6,7 @@
 %%
 %% swjtuthesis.dtx  (with options: `authoryear')
 %% 
-%% Copyright (C) 2018-2018 by Changfu Chen <geosciman@163.com>
+%% Copyright (C) 2018-2018 by GeosciMan <geosciman@163.com>
 %% 
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either
