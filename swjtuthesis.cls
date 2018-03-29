@@ -104,8 +104,12 @@
 }
 \swjtu@define@term{professionaltype}
 \swjtu@define@term{title}
+\swjtu@define@term{ClassifiedIndex}
+\swjtu@define@term{UDC}
 \swjtu@define@term{secrettext}
+\swjtu@define@term{grade}
 \swjtu@define@term{author}
+\swjtu@define@term{discipline}
 \swjtu@define@term{major}
 \swjtu@define@term{supervisor}
 \swjtu@define@term{cosupervisor}
@@ -113,7 +117,9 @@
 \swjtu@define@term{enprofessionaltype}
 \swjtu@define@term{entitle}
 \swjtu@define@term{ensecrettext}
+\swjtu@define@term{engrade}
 \swjtu@define@term{enauthor}
+\swjtu@define@term{endiscipline}
 \swjtu@define@term{enmajor}
 \swjtu@define@term{ensupervisor}
 \swjtu@define@term{encosupervisor}
@@ -385,8 +391,11 @@
     \begin{titlepage}%
         \tikz[remember picture,overlay]%
             \node [yshift=-4cm] at (current page.north) [below,align=flush center]%
-                {\parbox{\textwidth}{\raggedleft\fangsong\setfontsize{14\bp@}\swjtu@secrettext}};%
-        \vpostext{4cm}{\includegraphics[height=37\bp@]{figures/swjtu_logo_text}}%
+                {\parbox{\textwidth}{\raggedright\fangsong\setfontsize{14\bp@}\swjtu@ClassifiedIndex}};%
+                {\parbox{\textwidth}{\raggedleft\fangsong\setfontsize{14\bp@}\swjtu@secrettext}}%
+        \tikz[remember picture,overlay]%
+            \node [yshift=-5cm] at (current page.north) [below,align=flush center]%
+                {\parbox{\textwidth}{\raggedright\fangsong\setfontsize{14\bp@}\swjtu@UDC}};%
         \if@swjtu@professional
           \vpostext{6.3cm}{\sffamily\setfontsize{56\bp@}\ziju{-0.09}\swjtu@thesisname}%
           \vpostext{9cm}{\setfontsize{26\bp@}\swjtu@professionaltype}%
@@ -398,42 +407,46 @@
           \vpostext{16.3cm}{\sffamily\bfseries\setfontsize{26\bp@}\swjtu@title}%
         \fi
         \tikz[remember picture,overlay]%
-            \node [xshift=4.6cm,yshift=-20.3cm] at (current page.north west)%
-            [below right,align=left] {%
+            \node [yshift=-20cm] at (current page.north)%
+            [below,align=flush center] {%
                 \setfontsize{16\bp@}%
                 \begin{tabular}{@{}l@{\hspace{\ccwd}}l@{}}%
-                    \textsf{作者姓名：} & \swjtu@author \\%
-                    \textsf{学科专业：} & \swjtu@major \\%
-                    \textsf{导师姓名：} & \swjtu@supervisor\quad\swjtu@cosupervisor \\%
-                    \textsf{完成时间：} & \swjtu@date%
+                    \textsf{年\hspace{4em}级}    & \swjtu@grade \\%
+                    \textsf{姓\hspace{4em}名} & \swjtu@author \\%
+                    \textsf{申请学位级别} & \swjtu@discipline \\%
+                    \textsf{专\hspace{4em}业} & \swjtu@major \\%
+                    \textsf{指\hspace{0.6em}导\hspace{0.6em}教\hspace{0.6em}师} & \swjtu@supervisor\quad\swjtu@cosupervisor \\%
                 \end{tabular}};%
+          \vpostext{26cm}{\setfontsize{16\bp@}[30\bp@]\swjtu@date}%
     \end{titlepage}}
 \newcommand\make@entitle{%
     \begin{titlepage}%
         \tikz[remember picture,overlay]%
-            \node [yshift=-4cm] at (current page.north) [below,align=flush center]%
-                {\parbox{\textwidth}{\raggedleft\setfontsize{14\bp@}\swjtu@ensecrettext}};%
-        \vpostext{3.9cm}{\sffamily\setfontsize{20\bp@}[30\bp@]%
-            Southwest Jiaotong University}%
+            \node [yshift=-2cm] at (current page.north) [below,align=flush center]%
+                {\parbox{\textwidth}{\raggedright\setfontsize{14\bp@}\swjtu@ClassifiedIndex}};%
+        \tikz[remember picture,overlay]%
+            \node [yshift=-3cm] at (current page.north) [below,align=flush center]%
+                {\parbox{\textwidth}{\raggedright\fangsong\setfontsize{14\bp@}\swjtu@UDC}};%
         \vpostext{4.9cm}{\sffamily\setfontsize{26\bp@}[30\bp@]\swjtu@enthesisname}%
         \if@swjtu@professional
           \vpostext{6.2cm}{\setfontsize{16\bp@}\swjtu@enprofessionaltype}%
-          \vpostext{8.9cm}{\includegraphics[height=5.1cm]{figures/swjtu_logo_fig}}%
           \vpostext{15cm}{\sffamily\bfseries\setfontsize{26\bp@}[30\bp@]\swjtu@entitle}%
         \else
           \vpostext{7.9cm}{\includegraphics[height=5.1cm]{figures/swjtu_logo_fig}}%
           \vpostext{14.2cm}{\sffamily\bfseries\setfontsize{26\bp@}[30\bp@]\swjtu@entitle}%
         \fi
         \tikz[remember picture,overlay]%
-            \node [xshift=4.4cm,yshift=-20.2cm] at (current page.north west)%
-            [below right,align=left] {%
+            \node [yshift=-20.2cm] at (current page.north)%
+            [below,align=flush center] {%
                 \setfontsize{16\bp@}[30\bp@]%
                 \begin{tabular}{@{}l@{}}%
+                    Grade:         \swjtu@engrade \\%
                     Author:        \swjtu@enauthor \\%
+                    Academic Degree Applied for: \swjtu@endiscipline \\%
                     Speciality:    \swjtu@enmajor \\%
                     \swjtu@supervisorline \\%
-                    Finished time: \swjtu@endate%
                 \end{tabular}};%
+             \vpostext{26cm}{\setfontsize{16\bp@}[30\bp@]\swjtu@endate}%
     \end{titlepage}}
 \newcommand{\swjtu@declaretext} {
 本人声明所呈交的学位论文，是本人在导师指导下进行研究工作所取得的成果。
