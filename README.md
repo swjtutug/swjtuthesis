@@ -22,13 +22,13 @@
 
 3. **不支持** [CTeX 套装](http://www.ctex.org/CTeXDownload)。
 
-4. <!--初始版本无法利用 `make doc` 编译运行，但是其他方式可以的，主要是环境变量依赖问题。-->
-``` bash
-sudo apt-get remove --purge texlive-base 
-sudo apt-get remove --purge texlive-binaries tex-common 
-```
+<!--4. 初始版本无法利用 `make doc` 编译运行，但是其他方式可以的，主要是环境变量依赖问题。-->
+<!--``` bash-->
+<!--sudo apt-get remove --purge texlive-base -->
+<!--sudo apt-get remove --purge texlive-binaries tex-common -->
+<!--```-->
 
-5. <!--主要注意相关的设置含义，配置-->
+<!--5. 主要注意相关的设置含义，配置-->
 <!--[Travis CI](https://travis-ci.org/swjtutug/swjtuthesis)-->
 <!--时，未注意到时间延迟问题，因此起始阶段花费时间较大，配置实现参考-->
 <!--[官方文档](https://docs.travis-ci.com/)-->
