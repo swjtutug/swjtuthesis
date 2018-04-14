@@ -349,7 +349,6 @@
     \pdfbookmark[0]{封面}{titlepage}
     \make@cntitle \cleardoublepage
     \pdfbookmark[0]{Title page}{entitlepage}
-    \make@entitle \cleardoublepage
     \restoregeometry
     \if@swjtu@bachelor\relax\else
         \if@swjtu@pdf\relax\else%
@@ -399,14 +398,12 @@
             \node [yshift=-5cm] at (current page.north) [below,align=flush center]%
                 {\parbox{\textwidth}{\raggedright\fangsong\setfontsize{14\bp@}\swjtu@UDC}};%
         \if@swjtu@professional
-          \vpostext{6.3cm}{\sffamily\setfontsize{56\bp@}\ziju{-0.09}\swjtu@thesisname}%
+          \vpostext{6.3cm}{\sffamily\setfontsize{28\bp@}\ziju{-0.09}\swjtu@thesisname}%
           \vpostext{9cm}{\setfontsize{26\bp@}\swjtu@professionaltype}%
-          \vpostext{10.3cm}{\includegraphics[height=4.7cm]{figures/swjtu_logo_fig}}%
-          \vpostext{16.3cm}{\sffamily\bfseries\setfontsize{26\bp@}\swjtu@title}%
+          \vpostext{16.3cm}{\sffamily\bfseries\setfontsize{30\bp@}\swjtu@title}%
         \else
-          \vpostext{6.3cm}{\sffamily\setfontsize{56\bp@}\swjtu@thesisname}%
-          \vpostext{9.8cm}{\includegraphics[height=4.7cm]{figures/swjtu_logo_fig}}%
-          \vpostext{16.3cm}{\sffamily\bfseries\setfontsize{26\bp@}\swjtu@title}%
+          \vpostext{6.3cm}{\sffamily\setfontsize{28\bp@}\swjtu@thesisname}%
+          \vpostext{9.0cm}{\sffamily\bfseries\setfontsize{30\bp@}\swjtu@title}%
         \fi
         \tikz[remember picture,overlay]%
             \node [yshift=-20cm] at (current page.north)%
@@ -415,7 +412,6 @@
                 \begin{tabular}{@{}l@{\hspace{\ccwd}}l@{}}%
                     \textsf{年\hspace{4em}级}    & \swjtu@grade \\%
                     \textsf{姓\hspace{4em}名} & \swjtu@author \\%
-                    \textsf{申请学位级别} & \swjtu@discipline \\%
                     \textsf{专\hspace{4em}业} & \swjtu@major \\%
                     \textsf{指\hspace{0.6em}导\hspace{0.6em}教\hspace{0.6em}师} & \swjtu@supervisor\quad\swjtu@cosupervisor \\%
                 \end{tabular}};%
@@ -434,8 +430,7 @@
           \vpostext{6.2cm}{\setfontsize{16\bp@}\swjtu@enprofessionaltype}%
           \vpostext{15cm}{\sffamily\bfseries\setfontsize{26\bp@}[30\bp@]\swjtu@entitle}%
         \else
-          \vpostext{7.9cm}{\includegraphics[height=5.1cm]{figures/swjtu_logo_fig}}%
-          \vpostext{14.2cm}{\sffamily\bfseries\setfontsize{26\bp@}[30\bp@]\swjtu@entitle}%
+          \vpostext{8.0cm}{\sffamily\bfseries\setfontsize{26\bp@}[30\bp@]\swjtu@entitle}%
         \fi
         \tikz[remember picture,overlay]%
             \node [yshift=-20.2cm] at (current page.north)%
@@ -444,7 +439,6 @@
                 \begin{tabular}{@{}l@{}}%
                     Grade:         \swjtu@engrade \\%
                     Author:        \swjtu@enauthor \\%
-                    Academic Degree Applied for: \swjtu@endiscipline \\%
                     Speciality:    \swjtu@enmajor \\%
                     \swjtu@supervisorline \\%
                 \end{tabular}};%
