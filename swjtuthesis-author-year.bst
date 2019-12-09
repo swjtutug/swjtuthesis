@@ -1,12 +1,12 @@
 %%
-%% This is file `swjtuauthoryear.bst',
+%% This is file `swjtuthesis-author-year.bst',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
 %% swjtuthesis.dtx  (with options: `authoryear')
 %% 
-%% Copyright (C) 2018-2018 by GeosciMan <geosciman@163.com>
+%% Copyright (C) 2018-2019 by GeosciMan <geosciman@163.com>
 %% 
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either

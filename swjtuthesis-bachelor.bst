@@ -1,12 +1,12 @@
 %%
-%% This is file `swjtunumerical.bst',
+%% This is file `swjtuthesis-bachelor.bst',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% swjtuthesis.dtx  (with options: `numerical')
+%% swjtuthesis.dtx  (with options: `bachelor,numerical')
 %% 
-%% Copyright (C) 2018-2018 by GeosciMan <geosciman@163.com>
+%% Copyright (C) 2018-2019 by GeosciMan <geosciman@163.com>
 %% 
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either
@@ -369,7 +369,6 @@ FUNCTION {format.names}
             { t get.str.lang 'name.lang :=
               name.lang lang.en =
                 { t #1 "{vv~}{ll}{ f{~}}" format.name$
-                "u" change.case$
                   t #1 "{, jj}" format.name$ *
                 }
                 { t #1 "{ll}{ff}" format.name$ }
@@ -486,7 +485,7 @@ FUNCTION {set.mark}
 }
 
 FUNCTION {format.mark}
-{ "\allowbreak[" entry.mark * "]" * }
+{ "" }
 
 FUNCTION {format.full.names}
 {'s :=
@@ -915,24 +914,12 @@ FUNCTION {format.address.publisher}
     { address
       format.publisher empty$ not
         { ": " * format.publisher * }
-        { url empty$ doi empty$ and
-            { ": " * format.sine.nomine * }
-            'skip$
-          if$
-        }
+        'skip$
       if$
     }
-    { url empty$ doi empty$ and
-        { format.publisher empty$ not
-            { format.sine.loco ": " * format.publisher * }
-            { "" }
-          if$
-        }
-        { format.publisher empty$ not
-            { format.publisher }
-            { "" }
-          if$
-        }
+    { format.publisher empty$ not
+        { format.publisher }
+        { "" }
       if$
     }
   if$
@@ -957,6 +944,10 @@ FUNCTION {format.journal.number}
 
 FUNCTION {format.journal}
 { journal
+  is.in.chinese not
+    { "\textit{" swap$ * "}" * }
+    'skip$
+  if$
 }
 
 FUNCTION {format.periodical.year.volume.number}

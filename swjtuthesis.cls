@@ -6,7 +6,7 @@
 %%
 %% swjtuthesis.dtx  (with options: `class')
 %% 
-%% Copyright (C) 2018-2018 by GeosciMan <geosciman@163.com>
+%% Copyright (C) 2018-2019 by GeosciMan <geosciman@163.com>
 %% 
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either
@@ -722,10 +722,10 @@
 \newcommand\swjtubibstyle[1]{%
   \def\tmp@gbt{#1}%
   \ifx\tmp@gbt\tmp@numerical%
-    \bibliographystyle{swjtunumerical}%
+    \bibliographystyle{swjtuthesis-numeric}%
   \else%
     \ifx\tmp@gbt\tmp@authoryear%
-      \bibliographystyle{swjtuauthoryear}%
+      \bibliographystyle{swjtuthesis-author-year}%
     \else%
       \PackageError{swjtuthesis}{Unknown argument #1.}
       {It should be `numerical' or `authoryear'.}
@@ -738,7 +738,7 @@
   \else
     \citestyle{numbers}
   \fi
-  \bibliographystyle{swjtubachelor}%
+  \bibliographystyle{swjtuthesis-bachelor}%
 \else
   \if@swjtu@numerical
     \if@swjtu@super
@@ -746,10 +746,10 @@
     \else
       \citestyle{numbers}
     \fi
-    \bibliographystyle{swjtunumerical}%
+    \bibliographystyle{swjtuthesis-numeric}%
   \else
     \citestyle{authoryear}
-    \bibliographystyle{swjtuauthoryear}%
+    \bibliographystyle{swjtuthesis-author-year}%
   \fi
 \fi
 \patchcmd\NAT@citexnum{%

@@ -42,9 +42,9 @@ LaTeX version 1999/12/01 or later.
 \nopostamble
 \generate{
     \file{\jobname.cls}{\from{\jobname.dtx}{class}}
-    \file{swjtunumerical.bst}{\from{\jobname.dtx}{numerical}}
-    \file{swjtuauthoryear.bst}{\from{\jobname.dtx}{authoryear}}
-    \file{swjtubachelor.bst}{\from{\jobname.dtx}{bachelor,numerical}}
+    \file{swjtuthesis-numeric.bst}{\from{\jobname.dtx}{numerical}}
+    \file{swjtuthesis-author-year.bst}{\from{\jobname.dtx}{authoryear}}
+    \file{swjtuthesis-bachelor.bst}{\from{\jobname.dtx}{bachelor,numerical}}
 }
 \Msg{* Happy TeXing!}
 \endbatchfile
@@ -227,20 +227,20 @@ LaTeX version 1999/12/01 or later.
 %       模板文件 & \file{swjtuthesis.dtx}     & 模板原始代码文件，用户无需使用 \\
 %                & \file{swjtuthesis.cls}     & 文档类文件 \\
 %                & \file{swjtuextra.sty}      & 模板的附加宏包 \\
-%                & \file{swjtuauthoryear.bst} & author-year 风格的参考文献格式 \\
-%                & \file{swjtunumerical.bst}  & numerical 风格的参考文献格式 \\
+%                & \file{swjtuthesis-author-year.bst} & author-year 风格的参考文献格式 \\
+%                & \file{swjtuthesis-numeric.bst}  & numerical 风格的参考文献格式 \\
 %                & \file{figures/swjtu_*.pdf} & 校名和校徽图片 \\
 %     \midrule
 %       生成文件 & \file{swjtuthesis.pdf}     & （你正在阅读的）模板使用说明 \\
 %     \midrule
-%       示例文档 & \file{main.tex}           & 主文档 \\
-%                & \file{chapters/*.tex}     & 示例文档的各个章节 \\
-%                & \file{figures/}           & 放置图片的目录 \\
-%                & \file{bib/tex.bib}        & \BibTeX{} 示例数据库 \\
+%       示例文档 & \file{main.tex}            & 主文档 \\
+%                & \file{data/*.tex}          & 示例文档的各个章节 \\
+%                & \file{figures/}            & 放置图片的目录 \\
+%                & \file{ref/refs.bib}        & \BibTeX{} 示例数据库 \\
 %     \midrule
-%       其他     & \file{README.md}          & 基本说明 \\
-%                & \file{.latexmkrc}         & latexmk 的配置文件 \\
-%                & \file{Makefile}           & GNU make 的配置文件 \\
+%       其他     & \file{README.md}           & 基本说明 \\
+%                & \file{.latexmkrc}          & latexmk 的配置文件 \\
+%                & \file{Makefile}            & GNU make 的配置文件 \\
 %     \bottomrule
 %   \end{tabular}
 %   \caption{模板的文件组成}
@@ -1666,10 +1666,10 @@ LaTeX version 1999/12/01 or later.
 \newcommand\swjtubibstyle[1]{%
   \def\tmp@gbt{#1}%
   \ifx\tmp@gbt\tmp@numerical%
-    \bibliographystyle{swjtunumerical}%
+    \bibliographystyle{swjtuthesis-numeric}%
   \else%
     \ifx\tmp@gbt\tmp@authoryear%
-      \bibliographystyle{swjtuauthoryear}%
+      \bibliographystyle{swjtuthesis-author-year}%
     \else%
       \PackageError{swjtuthesis}{Unknown argument #1.}
       {It should be `numerical' or `authoryear'.}
@@ -1687,7 +1687,7 @@ LaTeX version 1999/12/01 or later.
   \else
     \citestyle{numbers}
   \fi
-  \bibliographystyle{swjtubachelor}%
+  \bibliographystyle{swjtuthesis-bachelor}%
 \else
   \if@swjtu@numerical
     \if@swjtu@super
@@ -1695,10 +1695,10 @@ LaTeX version 1999/12/01 or later.
     \else
       \citestyle{numbers}
     \fi
-    \bibliographystyle{swjtunumerical}%
+    \bibliographystyle{swjtuthesis-numeric}%
   \else
     \citestyle{authoryear}
-    \bibliographystyle{swjtuauthoryear}%
+    \bibliographystyle{swjtuthesis-author-year}%
   \fi
 \fi
 %    \end{macrocode}

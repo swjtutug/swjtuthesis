@@ -5,7 +5,7 @@
 [![Github downloads](https://img.shields.io/github/downloads/swjtutug/swjtuthesis/total.svg)](https://github.com/swjtutug/swjtuthesis/releases)
 [![GitHub commits](https://img.shields.io/github/commits-since/swjtutug/swjtuthesis/v1.1.svg)](https://github.com/swjtutug/swjtuthesis/commits/master)
 
-本项目是西南交通大学的学位论文 LaTeX 模板 swjtuthesis，按照最新版的
+本项目是西南交通大学的学位论文 LaTeX 模板 swjtuthesis，按照
 《[西南交通大学研究生学位论文撰写规范](http://gs.swjtu.edu.cn/ws/gs/dd/25)》
 和
 《[本科毕业设计（论文）指导纪要（模板）](http://jwc.swjtu.edu.cn/download/file/2014060410031788.doc)》
